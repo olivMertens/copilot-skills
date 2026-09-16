@@ -1,0 +1,11 @@
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Node (outillage de rendu local)
+node_modules/
+
+# Logs & artefacts temporaires
+logs/
+*.log
