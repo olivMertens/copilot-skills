@@ -6,8 +6,9 @@ description: >
   schematics, drawio updates, crossing arrows, overlapping labels, and Microsoft
   service icons. Apply logical columns, dedicated routing lanes, square-cornered
   colored rectangles, and synchronization with existing documentation or decks.
-  All icons come exclusively from https://aka.ms/MsiconsCollections, with no
-  other source. Project-agnostic: discover paths, labels, identifiers, architecture,
+   Find accurate Microsoft icons across MsiconsCollections, Microsoft Learn Azure
+   and Power Platform packs, az-icons.com, and DamoBird365/microsoft-cloud-icons.
+   Verify provenance and current product identity. Project-agnostic: discover paths, labels, identifiers, architecture,
   and rendering tools from the current repository rather than assuming a stack.
 ---
 
@@ -67,29 +68,55 @@ Do not hide a dependency merely to pass the layout check.
 Generated SVG paths must preserve the source routing using orthogonal `M`/`L` segments,
 arrow markers, and movable groups such as `<g transform="translate()">`.
 
-## Microsoft icons: exclusive source
-**All icons in the drawio, SVG, and PNG must originate from
-https://aka.ms/MsiconsCollections (no other source).** Do not use FontAwesome,
-built-in mxGraph service icons, third-party images, or hand-drawn replacement logos.
+## Microsoft icons: approved sources and selection
+**Search across the approved sources to find the correct product or service icon;
+do not restrict discovery or downloads to a single pack.** Multiple sources may be
+used in one diagram. Prefer current Microsoft-published assets when available;
+the approved community catalogs below are also valid discovery and download sources,
+not Microsoft publishers. Verify the identity and provenance of each selected asset.
+
+| Source | Use and provenance |
+| --- | --- |
+| [MsiconsCollections](https://aka.ms/MsiconsCollections) | Broad collection; resolve the link and verify the selected pack and asset. |
+| [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/icons/) | Microsoft-published Azure SVG pack, update history, and usage terms; preferred reference for Azure service icons. |
+| [az-icons.com](https://az-icons.com/) | Community catalog offering Azure SVG/PNG assets sourced from the Azure architecture pack; verify the stated pack version and exact service. |
+| [Power Platform icons](https://learn.microsoft.com/en-us/power-platform/guidance/icons) | Microsoft-published Power Platform SVG pack, update history, and usage terms; preferred reference for these products. |
+| [DamoBird365/microsoft-cloud-icons](https://github.com/DamoBird365/microsoft-cloud-icons/tree/master) | Community-curated Microsoft Cloud product SVG/PNG collection; use its `icons.json` index and verify the asset, revision, and trademark notice. |
+
+Do not use FontAwesome, unverified built-in mxGraph service icons, arbitrary images,
+or hand-drawn replacement logos to stand in for Microsoft products.
 Plain labeled rectangles and connectors are diagram primitives, not substitute icons.
 
-- Resolve the collection link when fetching assets. Its previously used asset base is
+- Resolve download links from the selected source rather than guessing filenames or
+   freezing a pack version or icon count into the workflow. For MsiconsCollections,
+   its previously used asset base is
   `https://tomkiljo.github.io/ms-icons/icons/`; verify that it still belongs to the
-  linked collection before using it. Do not silently switch to another icon library.
-- Record each chosen asset's collection path and resolved download URL for provenance.
-  Reuse cached assets only when their provenance is known. If the source is unavailable,
-  report the gap; use a labeled rectangle without an icon, not an unverified substitute.
-- Microsoft Learn pages may explain service semantics or usage terms, but are **not
-  alternative download sources** under this skill's exclusive-source rule.
+   linked collection before using it. Official archives and raw asset URLs linked by
+   the approved sources are valid download endpoints.
+- Search by exact product/service name and current or former names. If the first pack
+   lacks the correct icon, consult the other relevant approved sources before declaring
+   it missing. Prefer semantic accuracy and current branding over matching a pack's style.
+   Resolve conflicting variants against the current Microsoft product guidance.
+- Record the source page, asset path, resolved download URL, and pack version or commit
+   (where available). Record the retrieval date when no version is exposed. For community
+   assets, verify their claimed Microsoft origin against official guidance where possible;
+   do not treat a repository description as proof for every file.
+- Reuse cached assets only with known provenance. If relevant sources are unavailable
+   or no verified match exists, disclose which checks failed and use a labeled rectangle
+   without an icon. Never silently substitute another product's logo.
+- Follow the source's usage terms and Microsoft trademark guidance. Keep the product
+   name near the icon; preserve its colors, shape, and aspect ratio. Do not crop, flip,
+   rotate, distort, or use a Microsoft icon to represent a custom product.
 - In drawio, use `shape=image;image=<URL>` or a label node with
   `image=<URL>;imageAlign=left;imageVerticalAlign=middle`.
-- Verify the current collection and asset meaning. Do not relabel a generic Microsoft
+- Verify the selected source and asset meaning. Do not relabel a generic Microsoft
   logo as a dedicated Microsoft 365, Teams, or Graph product logo. Building glyphs such
   as `office01..14` are not Office product logos.
 
-### Collection path reference
+### MsiconsCollections path reference (non-exhaustive)
 These inherited paths are lookup candidates, not a claim of current availability or
-an instruction to add these services. Verify each selected path before use.
+an instruction to add these services. They do not limit discovery to this collection.
+Verify each selected path before use and check newer packs for renamed products.
 
 ```text
 # Historical base: https://tomkiljo.github.io/ms-icons/icons/
@@ -150,11 +177,12 @@ not interchangeable with Foundry-hosted agents.
    any of these connections; ordinary retrieval is not automatically Foundry IQ.
 4. Keep external resources outside the project ownership boundary, even when a project
    connection points to them. Distinguish integration from resource ownership.
-5. Verify current icon availability in the approved collection. If there is no dedicated
+5. Verify current icon availability across the relevant approved sources, including the
+   current Azure pack for Foundry Projects, Models, and Agent Service. If there is no dedicated
    Agent Service icon, use the verified Foundry platform icon with an explicit label.
    Do not substitute the Azure Bot Service icon for a Foundry agent.
 6. Show a Teams or other publication surface only when it is implemented, using an
-   accurately labeled collection asset or an icon-free rectangle.
+   accurately labeled asset from an approved source or an icon-free rectangle.
 
 ## Prevent label overlaps
 - For 48 px icons with two-line captions, start with at least **150 px** center spacing;
@@ -175,7 +203,9 @@ do not hand-edit exports independently.
 2. If no exporter is available, state the limitation and agree on a fallback. A Node
    mxGraph-to-SVG converter plus `@resvg/resvg-js` is an option, but must support the
    source's styles, text, parent offsets, and routing; do not silently drop features.
-3. Inline downloaded collection icons as nested `<svg>` elements with `viewBox`.
+3. Prefer SVG assets from the approved sources and inline them as nested `<svg>`
+   elements with `viewBox`. If only a verified PNG is available, embed it as a data URI
+   without upscaling beyond usable resolution; do not invent a vector replacement.
    Prefix IDs per instance and update references to gradients, masks, and clip paths.
    Remove scripts and external asset references; do not load fonts, CSS, or images
    over the network. XML namespace URIs and local `url(#id)` references are allowed.
@@ -210,9 +240,12 @@ respect repository commit rules and publish only when authorized.
 Mark conditional items not applicable with a reason rather than inventing components.
 
 - [ ] Paths, labels, stable IDs, dependencies, and boundaries reflect the current project.
-- [ ] **All icons originate from https://aka.ms/MsiconsCollections (no other source)**;
-      selected paths, provenance, availability, and icon meaning have been checked.
-- [ ] Missing icons use labeled rectangles without substitute logos; gaps are disclosed.
+- [ ] Icons come from the approved sources above or their linked download endpoints;
+   discovery was not limited to the inherited MsiconsCollections path list.
+- [ ] Each icon's product identity, current variant, provenance, source/download URLs,
+   version or retrieval date, and usage terms are checked; community catalogs are not mislabeled as Microsoft publishers.
+- [ ] Missing matches were sought in other relevant approved sources before using
+   labeled rectangles without substitute logos; unavailable sources and verification gaps are disclosed.
 - [ ] Logical columns, square corners, facing boundary placement, and readable colors are preserved.
 - [ ] If Foundry is present: actual agents and existing typed connections are shown;
       ownership is distinct from integration. Otherwise the Foundry pattern is not applicable.
@@ -223,7 +256,8 @@ Mark conditional items not applicable with a reason rather than inventing compon
 - [ ] Geometry checks cover full segments, not just waypoints; rendered PNG was visually inspected.
 - [ ] Arrowheads touch target borders perpendicularly, with at least 15 px final approaches;
       every direction present in the diagram was checked in the rendered output.
-- [ ] SVG contains embedded collection icons, unique IDs, and no external asset dependencies.
+- [ ] SVG contains embedded verified icons, unique IDs, and no external asset dependencies;
+   icon appearance and aspect ratios are preserved.
 - [ ] Existing documentation/deck consumers are synchronized and their image links resolve;
       absent consumers are marked not applicable.
 - [ ] Temporary artifacts are cleaned up; unavailable checks are disclosed; no unauthorized commit or push.

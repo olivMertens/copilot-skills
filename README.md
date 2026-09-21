@@ -22,9 +22,15 @@ local customizations blindly.
 creates and maintains editable **drawio** diagrams with generated, self-contained
 **SVG and PNG** outputs.
 
-- All icons must originate exclusively from
-  [Microsoft's icon collection](https://aka.ms/MsiconsCollections), with verified
-  provenance. No alternate icon sources are allowed.
+- Searches across five approved icon sources:
+  [MsiconsCollections](https://aka.ms/MsiconsCollections),
+  [Microsoft Learn Azure icons](https://learn.microsoft.com/en-us/azure/architecture/icons/),
+  [az-icons.com](https://az-icons.com/),
+  [Microsoft Learn Power Platform icons](https://learn.microsoft.com/en-us/power-platform/guidance/icons),
+  and [DamoBird365/microsoft-cloud-icons](https://github.com/DamoBird365/microsoft-cloud-icons/tree/master).
+  Prefers current Microsoft-published assets, verifies provenance and product identity,
+  and distinguishes community catalogs from Microsoft publishers. Discovery is not
+  limited to a single pack.
 - Discovers the current project's paths, labels, identifiers, and renderer instead
   of inheriting assumptions from another repository.
 - Requires logical columns, square-cornered shapes, dedicated orthogonal routing
