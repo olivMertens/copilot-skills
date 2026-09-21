@@ -1,64 +1,82 @@
 # copilot-skills
 
-Collection de **skills** (compétences de domaine) pour **GitHub Copilot / VS Code** — des
-instructions réutilisables qu'un agent charge à la demande pour réaliser une tâche spécialisée
-correctement, du premier coup.
+Reusable, project-agnostic domain skills for **GitHub Copilot in VS Code**.
+Each skill contains YAML frontmatter with discovery triggers, followed by
+instructions and an exit checklist. All skills are written in English.
 
-Chaque skill vit dans `skills/<nom>/SKILL.md` : un front‑matter YAML (`name`, `description`
-avec les déclencheurs) suivi des instructions détaillées. Pour l'utiliser dans un dépôt, copiez
-le dossier de la skill dans `.github/skills/` de ce dépôt ; l'agent lira le `SKILL.md`
-lorsque la demande correspond à sa `description`.
+## Installation
 
-## Skills disponibles
+Copy the desired directory from `skills/` into your repository's `.github/skills/`.
+Copilot loads its `SKILL.md` when a request matches the description. Review the
+instructions against your repository's policies before use.
 
-### 🏛️ `architecture-diagram-author` — Auteur de diagrammes d'architecture (drawio + SVG/PNG)
+To update an installed skill, import the latest upstream version, reconcile local
+changes, and validate the resulting instructions and checklist. Do not overwrite
+local customizations blindly.
 
-Crée et maintient un **diagramme d'architecture technique** en double format, cohérent et
-maintenable :
+## Available Skills
 
-- un **`.drawio` éditable** (mxGraph XML) avec **uniquement des icônes officielles Microsoft**
-  (Azure / Fabric / Entra / Microsoft 365) ;
-- une **SVG auto‑contenue** (formes + texte inlinés, aucune URL externe) rendue par GitHub et
-  les slides, plus le **PNG** rasterisé — tous deux **générés** depuis le `.drawio`, jamais
-  édités à la main.
+### Architecture Diagram Author
 
-**À utiliser quand** on parle de « diagramme d'architecture », « schéma technique », « drawio »,
-« mets à jour l'archi », « flèches qui se croisent », « icônes Azure ».
+[`architecture-diagram-author`](skills/architecture-diagram-author/SKILL.md)
+creates and maintains editable **drawio** diagrams with generated, self-contained
+**SVG and PNG** outputs.
 
-Ce que la skill garantit :
+- All icons must originate exclusively from
+  [Microsoft's icon collection](https://aka.ms/MsiconsCollections), with verified
+  provenance. No alternate icon sources are allowed.
+- Discovers the current project's paths, labels, identifiers, and renderer instead
+  of inheriting assumptions from another repository.
+- Requires logical columns, square-cornered shapes, dedicated orthogonal routing
+  lanes, readable labels, and checks for crossings and overlaps.
+- Uses drawio as the source of truth; requires geometry checks and visual inspection
+  of the generated PNG. Reuses the existing export workflow where possible.
+- Applies Foundry guidance only to implemented Foundry resources. Synchronizes
+  existing documentation and presentation consumers without requiring a deck.
 
-- **Icônes officielles uniquement** — chemins vérifiés + liens de téléchargement Microsoft Learn
-  (Azure Architecture Icons, Fabric icons, Microsoft 365 templates & icons). Pièges documentés
-  (p. ex. `office01..14` sont des glyphes bâtiment, PAS des logos ; pas de logo produit Teams —
-  utiliser le logo Microsoft 365 à 4 carrés).
-- **Discipline de lanes — zéro croisement** : chaque arête longue reçoit un couloir dédié
-  (lane `x`/`y` unique, ≥ 16 px d'écart) ; croisements flèche/flèche interdits, même hors des
-  boîtes ; contrôle mécanique (waypoints) avant rendu et visuel (PNG) après.
-- **Pas de chevauchement de libellés** : un libellé d'arête ne recouvre jamais une icône (écarter
-  la cible + libellé court, ou porter la nature de connexion dans la caption de l'icône).
-- **Patron « Foundry platform »** : sous‑cadre projet + badge plateforme, agent‑hub en rectangle
-  titré, connexions typées (modèle / Foundry IQ knowledge / tool), plusieurs agents par projet.
-- **Pointes de flèches** perpendiculaires au bord de la cible ; pièges de rendu `resvg`
-  documentés (`orient="auto"`).
-- **Rendu sans Chrome headless** : script Node jetable qui parse le mxGraph, inline les icônes
-  officielles téléchargées, et produit SVG + PNG via `@resvg/resvg-js`.
+Use for architecture diagrams, technical schematics, drawio updates, routing fixes,
+and Microsoft/Azure icon selection.
 
-📄 Détail complet et checklist : [`skills/architecture-diagram-author/SKILL.md`](skills/architecture-diagram-author/SKILL.md).
+### Container Engine Compatibility
+
+[`container-engine-compat`](skills/container-engine-compat/SKILL.md)
+adapts local workflows **from Docker to Podman and from Podman to Docker**, with
+explicit compatibility limits rather than assuming identical behavior.
+
+- Checks engine reachability, versions, connections, platforms, and user preference.
+- Preserves build context and checks ignore rules, BuildKit/Buildah features,
+  cache syntax, image outputs, multi-platform manifests, and secrets.
+- Covers Compose providers, API clients, rootless permissions, SELinux, networking,
+  healthchecks, and conditional GPU support.
+- Grounds performance recommendations in live official Docker **and** Podman
+  documentation; requires measurements and discloses untested engines.
+- Includes conditional Azure ACR/azd remote-build guidance, infrastructure quality
+  gates, and what-if/saved-plan review. Successful checks do not authorize deployment.
+- Preserves existing CI and remote release workflows unless changes are requested.
+
+Use for engine migration, local container failures, build-context differences,
+cache optimization, or Azure remote-build compatibility.
 
 ## Structure
 
-```
+```text
 skills/
   architecture-diagram-author/
     SKILL.md
+  container-engine-compat/
+    SKILL.md
 ```
 
-## Contribuer
+## Contributing
 
-Ajoutez une skill par dossier sous `skills/`. Gardez la `description` du front‑matter précise
-et riche en déclencheurs (c'est elle qui décide du chargement de la skill par l'agent), et les
-instructions concises et actionnables.
+Use one directory per skill. Keep frontmatter descriptions precise and rich in
+triggers, and instructions concise and actionable. Discover project-specific
+configuration rather than embedding private paths, labels, resource IDs, or names.
 
-## Licence
+Check technical claims against authoritative documentation, align the exit checklist
+with the instructions, and state validation gaps. Documentation review alone does
+not prove that a diagram renders, a container builds, or infrastructure deploys.
+
+## License
 
 [MIT](LICENSE).
