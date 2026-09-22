@@ -569,14 +569,156 @@ Before finalizing your deck, confirm:
 
 ---
 
+---
+
+## Presenter Slide Setup
+
+If your deck includes a **title slide with presenter credentials** (speaker intro slide), gather this information upfront:
+
+### Presenter Slide Questions
+
+1. **Presenter Photo**
+   - Do you have a headshot or profile photo? (JPG, PNG recommended)
+   - Preferred size/format (square, circular crop, full-body?)
+   - Permission/rights confirmed?
+
+2. **Branding Elements**
+   - Include Microsoft logo? (If yes, which variant: full logo, icon-only, or monochrome?)
+   - Company/organization logo? (If yes, provide file)
+   - Logo placement (top-left, top-right, bottom, centered?)
+
+3. **Interactive Elements**
+   - Generate LinkedIn QR code / flashcode linking to your profile?
+   - If yes, provide LinkedIn URL
+   - Position on slide (bottom-right, bottom-left, or separate QR slide?)
+   - Display URL text or QR only?
+
+4. **Presenter Notes Generation**
+   - Do you want speaker notes auto-generated? (Yes/No)
+   - If yes, what **language** for speaker notes?
+     - English
+     - French (Français)
+     - Spanish (Español)
+     - German (Deutsch)
+     - Other (specify)
+   - What **scope** should notes cover?
+     - Key talking points only (bullets, 1–2 lines per slide)
+     - Full narration (complete sentences, natural speech rhythm)
+     - Timing cues (pause points, how long to dwell on each slide)
+     - Q&A prompts (suggested audience questions + answers)
+     - Transitions (bridge language between slides)
+
+### Presenter Slide HTML Template
+
+```html
+<section id="presenter-slide">
+  <div class="presenter-grid">
+    <!-- Photo -->
+    <img src="assets/images/presenter-photo.jpg" alt="Your Name" class="presenter-photo" />
+    
+    <!-- Credentials -->
+    <div class="presenter-info">
+      <h2>Your Name</h2>
+      <p>Title / Role</p>
+      <p>Company / Organization</p>
+      
+      <!-- LinkedIn QR -->
+      <img src="assets/images/linkedin-qr.png" alt="LinkedIn QR Code" class="qr-code" />
+      <p class="qr-label">linkedin.com/in/yourprofile</p>
+    </div>
+    
+    <!-- Logos -->
+    <div class="logos">
+      <img src="assets/images/microsoft-logo.svg" alt="Microsoft" class="logo" />
+      <img src="assets/images/company-logo.svg" alt="Company" class="logo" />
+    </div>
+  </div>
+  
+  <aside class="notes">
+    Welcome everyone. I'm [Name], [title]. Today we'll explore [topic].
+    Pause here to let people settle in.
+  </aside>
+</section>
+```
+
+### Presenter Slide CSS Starter
+
+```css
+#presenter-slide {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presenter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: 90%;
+}
+
+.presenter-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0066cc;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.presenter-info h2 {
+  font-size: 48px;
+  margin: 0 0 0.5rem 0;
+  color: #1a1a1a;
+}
+
+.presenter-info p {
+  font-size: 24px;
+  margin: 0.5rem 0;
+  color: #555555;
+}
+
+.qr-code {
+  width: 120px;
+  height: 120px;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+}
+
+.qr-label {
+  font-size: 14px;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.logos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-self: center;
+}
+
+.logos .logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+```
+
+---
+
 ## Resources
 
 - **Reveal.js Docs**: https://revealjs.com/
-- **Plugins & Tools**: https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware
+- **Reveal.js Plugins & Tools**: https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware
+- **Rajgoel Reveal.js Plugins** (Chalkboard, Animate, Appearance): https://github.com/rajgoel/reveal.js-plugins
 - **Accessibility (WCAG 2.1)**: https://www.w3.org/WAI/WCAG21/quickref/
 - **Colorblind-Safe Palettes**: https://colorblindok.com/
 - **Typography for Presentations**: https://www.typewolf.com/
 - **Icon Libraries**: Lucide, Feather, Material Design Icons (all available as SVG)
+- **QR Code Generators**: https://www.qr-code-generator.com/ (SVG export for integration)
 
 ---
 
