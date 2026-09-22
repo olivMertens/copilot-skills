@@ -1312,6 +1312,311 @@ Press **S** to open speaker view in popup (separate monitor):
 
 ---
 
+# Reference Templates
+
+## Minimal Reveal.js Template with Speaker View
+
+Use this as a starting point for any deck:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .speaker-notes { font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Presentation Title</h1>
+                <p>Subtitle or tagline</p>
+                <aside class="notes">
+                    This is your speaker note for slide 1.
+                    It appears only in speaker view (press S).
+                    Use it to remember talking points, transitions, or timing.
+                </aside>
+            </section>
+
+            <!-- Slide 2: Content with fragments -->
+            <section>
+                <h2>Main Concept</h2>
+                <ul>
+                    <li class="fragment">First point</li>
+                    <li class="fragment">Second point</li>
+                    <li class="fragment">Third point</li>
+                </ul>
+                <aside class="notes">
+                    Elaborate on each point. Fragments advance one per click.
+                </aside>
+            </section>
+
+            <!-- Slide 3: Two-column layout -->
+            <section>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h3>Left Column</h3>
+                        <p>Content here</p>
+                    </div>
+                    <div>
+                        <h3>Right Column</h3>
+                        <p>Content here</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/plugin/notes/notes.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            plugins: [ RevealNotes ]
+        });
+    </script>
+</body>
+</html>
+```
+
+**To use speaker view:**
+- Open in browser
+- Press **S** to open speaker view in a new window
+- Drag the new window to your presenter monitor
+- First monitor shows current + next slide + notes
+- Projector shows only the current slide
+
+---
+
+## Microsoft Fluent Design Template
+
+Professional style with Fluent Design principles (clean, accessible, modern):
+
+```html
+<head>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .reveal {
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal section {
+            padding: 60px !important;
+        }
+        
+        /* Microsoft brand colors (no personal info) */
+        .section-blue { background: linear-gradient(135deg, #0078d4 0%, #1084d7 100%); }
+        .section-teal { background: linear-gradient(135deg, #00a4a4 0%, #00b9b9 100%); }
+        .section-accent { background: linear-gradient(135deg, #e74c3c 0%, #e67e22 100%); }
+        
+        .reveal section h1 { font-size: 3.5em; margin: 0; }
+        .reveal section h2 { font-size: 2.2em; }
+        .reveal section p { font-size: 1.2em; line-height: 1.6; }
+        
+        .metric-box {
+            display: inline-block;
+            background: rgba(0, 120, 212, 0.1);
+            border-left: 4px solid #0078d4;
+            padding: 20px 30px;
+            margin: 10px;
+            border-radius: 2px;
+        }
+        
+        .metric-box .number {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #0078d4;
+        }
+        
+        .metric-box .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Title Slide -->
+    <section class="section-blue" style="color: white;">
+        <h1>Presentation Topic</h1>
+        <p style="font-size: 1.5em; margin-top: 40px; opacity: 0.9;">
+            Short description or tagline
+        </p>
+    </section>
+
+    <!-- Content Slide with Metrics -->
+    <section>
+        <h2>Key Results</h2>
+        <div style="margin-top: 60px;">
+            <div class="metric-box">
+                <div class="number">42%</div>
+                <div class="label">Improvement</div>
+            </div>
+            <div class="metric-box">
+                <div class="number">3x</div>
+                <div class="label">Faster</div>
+            </div>
+            <div class="metric-box">
+                <div class="number">98%</div>
+                <div class="label">Satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accent Section -->
+    <section class="section-accent" style="color: white;">
+        <h2>Key Takeaway</h2>
+        <p style="font-size: 1.4em; margin-top: 40px;">
+            Main message or call-to-action
+        </p>
+    </section>
+</body>
+```
+
+---
+
+## Auto-Animate Code Walkthrough Template
+
+Template for demonstrating code with progressive reveal:
+
+```html
+<section>
+    <h2>Code Evolution</h2>
+    
+    <!-- Step 1: Basic function -->
+    <section data-auto-animate>
+        <pre data-id="code"><code class="language-javascript">
+function processData(items) {
+    return items;
+}
+        </code></pre>
+        <aside class="notes">
+            Start with a simple skeleton.
+        </aside>
+    </section>
+
+    <!-- Step 2: Add logic -->
+    <section data-auto-animate>
+        <pre data-id="code"><code class="language-javascript">
+function processData(items) {
+    return items
+        .filter(item => item.active)
+        .map(item => item.value);
+}
+        </code></pre>
+        <aside class="notes">
+            Filter and transform. The code position animates smoothly.
+        </aside>
+    </section>
+
+    <!-- Step 3: Add error handling -->
+    <section data-auto-animate>
+        <pre data-id="code"><code class="language-javascript">
+function processData(items) {
+    if (!items || items.length === 0) return [];
+    
+    return items
+        .filter(item => item.active)
+        .map(item => item.value)
+        .catch(error => console.error(error));
+}
+        </code></pre>
+        <aside class="notes">
+            Add validation and error handling.
+        </aside>
+    </section>
+</section>
+```
+
+**Usage:**
+- Each `<section data-auto-animate>` animates smoothly from one to the next
+- Elements with `data-id="code"` animate position/size automatically
+- Perfect for showing code iterations, design refinements, or algorithm steps
+
+---
+
+## Comparison Layout Template (Two-Column)
+
+```html
+<section>
+    <h2>Approach Comparison</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px;">
+        
+        <!-- Left column -->
+        <div style="text-align: left;">
+            <h3 style="color: #0078d4; border-bottom: 3px solid #0078d4; padding-bottom: 10px;">
+                Option A
+            </h3>
+            <ul style="margin-top: 30px; font-size: 0.9em; line-height: 1.8;">
+                <li class="fragment">✓ Benefit 1</li>
+                <li class="fragment">✓ Benefit 2</li>
+                <li class="fragment">✗ Drawback 1</li>
+                <li class="fragment">Best for: Use case X</li>
+            </ul>
+        </div>
+        
+        <!-- Right column -->
+        <div style="text-align: left;">
+            <h3 style="color: #e74c3c; border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">
+                Option B
+            </h3>
+            <ul style="margin-top: 30px; font-size: 0.9em; line-height: 1.8;">
+                <li class="fragment">✓ Benefit 3</li>
+                <li class="fragment">✓ Benefit 4</li>
+                <li class="fragment">✗ Drawback 2</li>
+                <li class="fragment">Best for: Use case Y</li>
+            </ul>
+        </div>
+    </div>
+</section>
+```
+
+---
+
+## Accessibility Checklist Template
+
+```html
+<section style="text-align: left;">
+    <h2>Accessibility Verification</h2>
+    <ul style="font-size: 1.1em; line-height: 2; margin-top: 40px;">
+        <li>☐ Color contrast ≥ 4.5:1 (WCAG AA)</li>
+        <li>☐ Font size ≥ 18px body, ≥ 60px titles</li>
+        <li>☐ Dyslexia-friendly font (Segoe UI, Open Sans, or similar)</li>
+        <li>☐ Alt text for all images</li>
+        <li>☐ Keyboard navigation tested (arrow keys, space, enter)</li>
+        <li>☐ No motion auto-play; prefers-reduced-motion respected</li>
+        <li>☐ Slide notes for all transitions</li>
+        <li>☐ Tested with screen reader</li>
+    </ul>
+    <aside class="notes">
+        Run through this checklist before final delivery.
+    </aside>
+</section>
+```
+
+---
+
 # Decision Tree — Quick Guidance
 
 ```
