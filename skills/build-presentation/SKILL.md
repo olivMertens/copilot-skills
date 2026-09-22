@@ -28,6 +28,9 @@ current working directory or a particular user's home.
    [the conversion guide](references/html-to-pptx.md). Use an installed `pptx`
    skill, a native PowerPoint canvas, or another available editable-PPTX tool.
    Discover capabilities before relying on them; do not assume a machine path.
+   **Always save the `.pptx` in the same folder as the source `.html`, reusing
+   the HTML base name** (`deck.html` → `deck.pptx`). Never emit the deck to a
+   separate build, dist, temp or working directory.
 
 If the user asks for HTML then PowerPoint, review the HTML with them before
 rebuilding the approved version as native PowerPoint objects.

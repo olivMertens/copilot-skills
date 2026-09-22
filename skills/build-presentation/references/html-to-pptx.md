@@ -18,6 +18,10 @@ White/blue/amber is only the packaged neutral fallback, not a mandatory identity
 ## 1. Establish the approved input
 
 - Confirm the HTML file, approved revision, slide count and output directory.
+- **Save the `.pptx` next to its source HTML.** The output directory is the
+  same folder that contains the approved `.html` file, and the `.pptx` reuses
+  the HTML base name (`deck.html` → `deck.pptx`). Never write the deck to a
+  separate `build/`, `dist/`, temp or working directory.
 - Preserve the approved content, reading order, source links and speaker notes.
 - Use only authorized local assets. Do not upload source decks or captures to
   online converters without explicit approval for that data destination.
@@ -108,8 +112,9 @@ Check every slide, not just the title page:
    any direct package modification.
 6. Correct defects and re-render affected slides.
 
-Deliver the actual `.pptx` and preserve the approved HTML. State any font,
-animation or validation limitation. If no rendering/viewer tool is available,
-report visual verification as blocked, not passed.
+Deliver the actual `.pptx` in the same folder as the source HTML, and preserve
+the approved HTML. State any font, animation or validation limitation. If no
+rendering/viewer tool is available, report visual verification as blocked, not
+passed.
 
 This procedure does not authorize sending, uploading or publishing either file.
