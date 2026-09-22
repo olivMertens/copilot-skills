@@ -44,8 +44,18 @@ Use a browser inspector or Playwright when available.
 4. Measure each element relative to the slide, at the unscaled stage size.
    Collect bounds, z-order, fill, stroke, radius, text runs, alignment, padding
    and link targets. Resolve responsive units at this fixed size.
+   Hidden slides (`display:none`) report no box: temporarily force them visible
+   (`display:block; position:relative; opacity:1`) and reveal entrance wrappers
+   (`opacity:1; transform:none`) in the DOM, measure, then restore the original
+   inline styles. Normalize every rect to the 1280 x 720 reference
+   (scale = 1280 / measured slide width).
 5. Keep icons as small vector or high-resolution assets where needed; retain
    larger diagrams as shapes. Record authorized asset sources and licenses.
+   For inline SVG icons in the source (e.g. Lucide), read each icon's inner SVG
+   markup from the DOM and rebuild a complete standalone `<svg>` (carry over the
+   `viewBox`, `stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin` and
+   `fill:none`). Reuse that vector in the deck so the icons stay crisp and on-brand
+   rather than redrawing them by hand.
 6. Save a final-state reference render for comparison.
 
 Never read entrance timing only after `animation: none`; that loses the
@@ -74,6 +84,24 @@ Convert exactly once. A canvas may already report points or inches.
 - Check theme defaults: unintended shadows, line styles and text padding can
   alter the result even when all measured coordinates are correct.
 
+### Embedding inline SVG icons
+
+When the deck keeps the source's inline SVG icons (e.g. Lucide), embed the
+vector so it renders crisply and inherits the brand stroke color:
+
+- Insert each icon as an SVG image (data URI) at its measured position and size.
+  Modern PowerPoint renders SVG natively; keep the vector rather than flattening
+  the whole slide to one picture.
+- Some tools (e.g. PptxGenJS) write a **placeholder PNG fallback that actually
+  contains the raw SVG text**, so viewers that rely on the raster fallback
+  (LibreOffice, Google Slides, older Office, macOS Preview) show blank icons.
+  Post-process the package: for every `ppt/media/*.png` whose bytes start with
+  `<svg`, rasterize the sibling SVG to a real PNG (any SVG rasterizer) and rewrite
+  those bytes, keeping the vector SVG in place. This yields crisp SVG in PowerPoint
+  plus a genuine raster fallback everywhere else.
+- Reproduce the icon container (chip background, border, radius) as a native shape
+  behind the icon; do not bake it into the SVG.
+
 Verify the actual font family and weight exposed by the installed font files.
 Some distributions use separate family names for weights; others do not.
 Avoid synthetic bold on an already-bold face.
@@ -93,6 +121,17 @@ specific substitutes. Embed fonts only when the license, font format and
 chosen tooling permit it. Never promise identical rendering on another machine
 solely because the font name is recorded.
 
+Watch for a **font-substitution rendering artifact**: when a requested font is
+not installed, some PowerPoint export/reflow paths duplicate the last word of a
+wrapped line at the start of the next line ("nouvelle voie / voie d'access"),
+even though the stored text is correct. If the source CSS declares brand fonts
+via `local()` only (no bundled font files), the browser already falls back to
+installed fonts — so author the deck with those same installed fallbacks
+(e.g. a grotesque heading -> Trebuchet MS, a UI sans -> Segoe UI, a mono ->
+Consolas), which is both faithful to the real HTML rendering and free of the
+artifact. Prefer absolute line spacing over a line-spacing multiple. Alternative:
+embed the actual fonts when licensing and tooling allow.
+
 Avoid manual OOXML editing unless necessary and supported by a validator.
 If timing or font relationships are changed directly, validate the package
 after each change and open it in PowerPoint to check for repair prompts.
@@ -102,6 +141,10 @@ after each change and open it in PowerPoint to check for repair prompts.
 Check every slide, not just the title page:
 
 1. Render the PPTX and compare it with the approved HTML reference.
+   On Windows with PowerPoint installed, export each slide to PNG through COM
+   automation (`Presentation.Slides[i].Export(path, "PNG", w, h)`) and read every
+   image back; this catches icon-fallback gaps, wrapping artifacts and layout
+   drift that text extraction cannot. Re-render after each fix.
 2. Inspect clipping, overlap, line wrapping, font substitution, connector
    endpoints, image quality, contrast and reading order.
 3. Extract text and compare slide order, headings, numerical claims, links
