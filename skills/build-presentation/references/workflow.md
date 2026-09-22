@@ -1,368 +1,294 @@
-# Workflow: Brand-Aware Presentation Authoring
+# Build Presentation
 
-## Overview
+Use **`build-presentation`** when the user asks for a presentation in HTML or
+PowerPoint, says "use my Build presentation style", "same style as the Build
+deck", "presentation style Build", "comme ma présentation Build", or invokes
+`/build-presentation`.
 
-This eight-step workflow ensures decks are built with an explicit, coherent identity rather than implicit defaults. The key principle is **authority-first**: if an authoritative brand kit or template is supplied, it takes precedence over all defaults.
+This is a reusable **presentation style**, not a Microsoft Build news-retrieval
+skill. Reuse the visual grammar for any topic. An explicit customer template,
+brand requirement, or different style requested by the user takes precedence.
+Do not use it for a website, social video, or a manager BR one-pager.
 
----
+## 1. Load the actual design reference
 
-## Step 1: Establish Identity Brief
+The selected composition reference is the **published eight-slide Agentic
+Platform deck**: `https://ozgurkarahan.com/agentic-platform/`. Use its layout
+grammar. Use its white/blue/amber identity only for an approved neutral fallback,
+not when an authoritative brand identity has been resolved.
 
-**Goal:** Resolve the four identity decisions before authoring begins.
+Resolve bundled files from the directory containing `SKILL.md`. This package
+does not require a private wiki or the reference website's source repository.
+The bundled design system and starter are sufficient to begin offline.
+If a required bundled file is missing, report the incomplete installation
+rather than silently substituting a generic presentation style.
 
-### Decisions
+Read these files before authoring:
 
-| Decision | Clarification | Examples |
-|---|---|---|
-| **Brand/Client Identity** | Name the brand, client, or organization. Or specify "brand-neutral" if no identity applies. | "Acme Corp", "TechStart Inc", "Government Agency", "brand-neutral" |
-| **Authoritative Source** | Provide the definitive reference: brand kit URL, design template, logo file, color specification, typography doc, or exact guidelines. If nothing exists, state "none supplied". | "Brand kit: brand.company.com/guidelines.pdf", "Logo: assets/acme-logo.svg + color spec", "Typography: Figma link", "none supplied" |
-| **Dominant Color & Role** | Name the primary color, hex code (if available), and its semantic role: primary (trust, hierarchy), accent (action, highlight), or support (muted, secondary). | "Navy #203859 (primary, trust)", "Teal #61C1B6 (accent, action)", "Orange (warning, sparse)" |
-| **Icon Policy** | Choose how icons will be selected. Specify one or more: generic outline family (Lucide, Feather, etc.), official vendor icons (Microsoft, Apple, Google, etc.), custom/brand assets, or a justified hybrid. | "Lucide outline (all generic concepts)", "Lucide + Microsoft/Azure vendor icons", "Custom brand asset set", "Outline family + vendor exceptions" |
+1. `references\design-system.md`:
+   colors, fonts, spacing, diagram grammar, motion and HTML-to-PPTX mapping.
+2. `assets\starter.html` for HTML:
+   a neutral, reusable specimen, not approved presentation content.
+3. The active project's existing deck and instructions, when present.
+4. For PowerPoint output, invoke **`pptx`** when the client exposes it, or use
+   an available native PowerPoint canvas or editable-PPTX library. Discover
+   the tool's actual capabilities and read its authoring/validation guides.
+   Resolve any tool-specific paths from that tool's installation, never a
+   hardcoded home directory. The third-party `pptx` skill is not bundled.
+   If no compatible tooling is available, report that prerequisite instead
+   of silently returning HTML or installing software without approval.
 
-### Ask Pattern
+The published deck is a **style reference only**. Its dates, product names,
+availability labels, performance numbers and promises are not current evidence.
+Do not carry over "GA", "live today", customer names or Build 2026 footers.
 
-**If all four are provided:** Proceed with Step 2. No questions needed.
+## 2. Establish the brief and evidence
 
-**If any are missing:** Ask only for the missing ones, grouped in a single concise question.
+Resolve topic, audience, language, time slot, output (`html`, `pptx`, or both),
+whether a supplied template must be preserved, and the visual-identity brief.
+The identity brief has four explicit decisions:
 
-**Example (multilingual prompt with gaps):**
+1. target brand/client, or an explicit brand-neutral mode;
+2. authoritative source: brand kit, template, logo files or exact guidelines;
+3. dominant color and its semantic role, plus any required supporting colors;
+4. icon policy: generic outline family, official product icons, approved custom
+  set, or a deliberate combination with clear boundaries.
 
-```
-[Brand/Client]: PrevaIQ (provided)
-[Authoritative Source]: TBD (missing)
-[Dominant Color & Role]: TBD (missing)
-[Icon Policy]: TBD (missing)
+Do not silently infer these decisions from a repository name, a lone logo,
+unverified web results, previous clients or the packaged specimen. Inspect
+materials already supplied by the user or present in the active project, but
+treat conflicting or incomplete evidence as unresolved. If resolving identity
+would require discovering which brand/client is intended, extracting colors
+from artwork, or choosing a dominant color without an authoritative source,
+ask one concise grouped question before authoring or restyling slides. Include
+only the unresolved items, using the relevant prompts below:
 
-Clarification needed:
-- Where is the brand kit, template, or color specification?
-- What is the dominant color (name or hex)?
-- Which icon family: Lucide outline, vendor icons, custom set, or hybrid?
-```
-
-### Delegation Rule
-
-If a user delegates style choices ("decide for me", "use your judgment", "make it look good"):
-
-- **If an authoritative identity was supplied:** Delegate stays within that identity. Apply the supplied brand kit, colors, and typography.
-- **If no authoritative identity exists:** Use the Build neutral fallback (white, navy #203859, teal #61C1B6) only after explicit user approval.
-
----
-
-## Step 2: Gather Evidence
-
-**Goal:** Collect all source materials that inform the deck.
-
-### Assets to Identify
-
-- **Brand kit or design system** — Color palette, typography, spacing rules, icon families
-- **Logo and mark files** — SVG preferred; ensure file is accessible or embedded
-- **Existing decks or templates** — If repurposing or matching a house style
-- **Authoritative guidelines** — Brand standards, tone, visual hierarchy
-- **Content outline** — Slide titles, key points, speaker notes (if available)
-
-### Evidence Checklist
-
-- [ ] Brand identity is named
-- [ ] Authoritative source is accessible (URL, file path, or inline specification)
-- [ ] Dominant color is confirmed (name + hex if available)
-- [ ] Icon family/policy is decided
-- [ ] Logo and any required assets are provided or linked
-- [ ] Content outline or narrative points are documented
-
----
-
-## Step 3: Build Narrative Structure
-
-**Goal:** Outline the slide sequence, flow, and speaker intent.
-
-### Narrative Planning
-
-- **Slide titles and sequence** — Logical flow from setup to resolution
-- **Pacing and transitions** — Which slides reveal all at once? Which staged?
-- **Speaker notes** — Key talking points, tone, emphasis
-- **Call-to-action or conclusion** — How does the deck end?
-
-### Multilingual Considerations
-
-If authoring for multiple languages:
-
-- **Identify target languages** — e.g., en, fr, es, zh-HK
-- **Plan for length variation** — Some languages expand text; slides may need height or column adjustment
-- **Speaker notes strategy** — Translated to match language variant, or single master?
-- **Image/diagram captions** — Will be localized or shared across variants?
-
----
-
-## Step 4: Preserve Style Fidelity
-
-**Goal:** Define the visual rules that will apply across all slides.
-
-### Design Token Application
-
-Map identity brief decisions to CSS tokens:
-
-| Identity Decision | CSS Token | Example |
-|---|---|---|
-| Dominant primary color | `--brand-primary` | `#203859` (navy) |
-| Dominant accent color | `--brand-accent` | `#61C1B6` (teal) |
-| Heading font | `--heading` | Bricolage Grotesque 800 |
-| Body font | `--body` | Instrument Sans 400/600 |
-| Label/mono font | `--mono` | IBM Plex Mono 400/600 |
-| Background | `--bg` | `#F7F9FB` |
-| Text color | `--text` | `#1A1A1A` |
-| Muted/secondary text | `--text-muted` | `#5A6472` |
-
-### Consistency Rules
-
-- **Colors:** All accent colors come from `--brand-accent` or approved derivatives; no arbitrary hex
-- **Typography:** Headings use `--heading`, body uses `--body`, code/labels use `--mono`
-- **Spacing:** Container-query widths (`cqw`) for responsive scaling; consistent gaps between elements
-- **Borders and radius:** Standard values (1–1.6px for borders, 10–12px for card radius, `999px` for pills)
-- **Icons:** Selected by semantic meaning, constrained to one family for generic concepts
-- **Double-theme:** If dark mode is needed, define `[data-theme="dark"]` variants for all color tokens
-
-### Layout Grid
-
-- **Canvas:** 16:9 aspect ratio, 1280×720 CSS px base
-- **Content area:** 3–4 column width unit (cqw) padding
-- **Component gaps:** 1–1.3 cqw between sections
-
----
-
-## Step 5: Craft HTML Deck
-
-**Goal:** Author semantic HTML with CSS design tokens and responsive behavior.
-
-### HTML Structure
-
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Presentation Title</title>
-  <style>
-    :root {
-      --brand-primary: #203859;
-      --brand-accent: #61C1B6;
-      --bg: #F7F9FB;
-      --text: #1A1A1A;
-      --text-muted: #5A6472;
-      --heading: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
-      --body: "Instrument Sans", "Segoe UI", sans-serif;
-      --mono: "IBM Plex Mono", Consolas, monospace;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); }
-    .slide { position: relative; width: min(1280px, 100%); aspect-ratio: 16 / 9;
-             container-type: inline-size; overflow: hidden; border-radius: 12px; }
-    h1 { font: 800 3.35cqw / 1.08 var(--heading); }
-    h2 { font: 600 1.9cqw / 1.2 var(--heading); }
-    .brand { color: var(--brand-primary); }
-    .accent { color: var(--brand-accent); }
-  </style>
-</head>
-<body>
-  <section class="slide" data-title="Slide 1">
-    <h1>Welcome</h1>
-    <p class="accent">Your story starts here.</p>
-  </section>
-  <!-- More slides... -->
-</body>
-</html>
+```text
+[Marque] Quelle marque ou quel client le deck représente-t-il, ou reste-t-il neutre ?
+[Source] Quelle charte, quel modèle ou quels actifs font foi ?
+[Dominante] Quelle couleur doit dominer, ou dois-je proposer des rôles à valider ?
+[Icônes] Existe-t-il une bibliothèque officielle, ou puis-je utiliser une famille contour générique ?
 ```
 
-### Key Authoring Rules
+Ask only for missing decisions that materially affect the result. If the user
+delegates choices within a supplied authoritative identity, choose within that
+identity. Use the packaged Build identity with one Lucide-style outline family
+only for explicitly brand-neutral output or when no authoritative identity is
+available and the user accepts the fallback. A quick start may default to HTML,
+16:9 and the user's language, but it must not invent a client identity. An
+explicit PowerPoint request must produce an editable `.pptx`, not just HTML.
 
-- **Use semantic tokens for all colors** — No hex codes in slide markup
-- **Responsive sizing with `cqw`** — Font sizes, gaps, and widths scale with container
-- **Accessibility:** `lang` attribute, heading hierarchy, color contrast (WCAG AA minimum)
-- **Speaker notes:** Include in `<aside class="speaker-notes">` within each slide
-- **Data attributes:** `data-title` on each slide for navigation labels
-- **Animations:** Optional; use `@keyframes enter` with `--delay` CSS var for stagger; respect `prefers-reduced-motion`
+For branded output, collect or locate only the approved assets needed now:
 
-### Icon Integration
+- primary logo plus light/dark or monochrome variants when available;
+- primary, secondary, accent, surface and text colors as exact values;
+- licensed heading/body typefaces and approved fallbacks;
+- logo exclusion-zone, minimum-size and prohibited-use rules;
+- an existing presentation template when it is the authoritative source.
 
-- **Lucide icons:** Embed as inline `<svg>` with `currentColor` fill and `width: 2.4cqw` sizing
-- **Brand logos:** Use `<img src="...">` with `width: 12cqw` in footers; preserve aspect ratio
-- **Vendor icons:** Source from official registries (Microsoft, Azure Icon Gallery, etc.); verify provenance and retain as-is (no color override)
+Treat those inputs as constraints, not inspiration. Map brand colors to semantic
+roles, verify text and non-text contrast, preserve logo geometry and use the
+logo sparingly on title, closing or master/footer surfaces. Do not derive a full
+palette from a logo when exact colors are available. Do not approximate a
+missing logo or download an unofficial copy. When only part of the kit is
+provided, identify the gaps and ask whether to use the packaged Build defaults
+for the unspecified roles. Do not extract or approximate missing colors from
+the logo unless the user explicitly authorizes that method and accepts the
+proposed values.
 
----
+Treat language fidelity as part of correctness. Author HTML and PowerPoint text
+in UTF-8/Unicode and preserve the orthography the audience expects. For French,
+keep accents, cedillas, ligatures and accented capitals: `é`, `è`, `ê`, `à`,
+`ù`, `ç`, `œ`, `É`, `À`, `Ç`. Use French quotation marks where appropriate
+and non-breaking spacing before `:`, `;`, `?` and `!` when the output format
+supports it. Never simplify visible French to ASCII (`acces`, `capacite`,
+`coeur`) for implementation convenience. Before delivery, inspect titles,
+labels, controls, notes and metadata for lost diacritics in every output format.
 
-## Step 6: Convert to PowerPoint
+Use the user's supplied or explicitly authorized topic sources. For factual
+claims, record the source and as-of date; check current first-party documentation
+for availability, licensing, pricing or roadmap statements. Private content
+and links do not belong in a public deck. Do not retrieve workplace material
+when the task is only styling existing content.
 
-**Goal:** Export the approved HTML deck to native `.pptx` format while preserving layout, colors, and typography.
+Keep source notes separate from presentation copy. A presentation should not
+accidentally disclose local paths, mailbox links, private account context or
+credentials. Use synthetic examples where a demonstration is needed.
 
-### Conversion Process
+## 3. Design the storyline before filling boxes
 
-1. **Validate HTML** — Ensure all slides render correctly in a modern browser
-2. **Extract styles** — CSS tokens and layout are mapped to PowerPoint theme colors and master slide geometry
-3. **Build slide deck** — Each HTML section becomes a PowerPoint slide
-4. **Preserve objects** — Diagrams, charts, and embedded images are converted to PowerPoint shapes or linked images
-5. **Transfer notes** — Speaker notes become PowerPoint notes pages
-6. **Test platforms** — Verify `.pptx` opens correctly in PowerPoint, Google Slides, and Keynote
+Create a short slide plan with:
 
-### Mapping Rules
+`slide | takeaway | layout | evidence | speaker note`
 
-| HTML Element | PowerPoint Mapping |
-|---|---|
-| `<h1>` with `--heading` font | Title placeholder with theme color |
-| `<p>` with `--body` font | Text placeholder |
-| Inline `<svg>` | Shape or picture (rasterized at 150 dpi) |
-| `<img src="...">` | Picture object (linked or embedded) |
-| `<aside class="speaker-notes">` | Notes page |
-| CSS background color | Slide fill (theme color if applicable) |
-| CSS borders and radius | Shape properties (border style, border radius) |
+For a substantive new storyline, critically review the plan before
+implementation and obtain the user's approval. If the host provides an
+independent reviewer, use it when authorized; no named custom agent is required.
+When HTML is requested before PowerPoint, obtain approval of the HTML version
+before rebuilding it as native PowerPoint objects.
 
-### Dark/Light Theme Variants
+Use the reference's narrative progression where it fits:
 
-If the HTML deck defines both `[data-theme="light"]` and `[data-theme="dark"]`:
+1. **Shift:** a concise before/after statement that explains why the topic matters.
+2. **Concept map:** explain the system in audience language before product names.
+3. **Implementation map:** reuse the exact geometry and add the real components.
+4. **Lifecycle:** show the flow and responsibility boundaries.
+5. **Zoom:** problem -> concrete response -> observable outcome.
+6. **Decision/resources:** leave one next step and a small set of usable links.
 
-- Generate two `.pptx` files: `deck-light.pptx` and `deck-dark.pptx`
-- Variant naming: Include `(Light)` or `(Dark)` in the title slide
+This is a menu, not a compulsory six-slide sequence. Do not force every topic
+into an agent architecture. Keep one focal diagram and one takeaway per slide.
+Put detail in speaker notes or an appendix rather than shrinking the type.
 
-For multilingual decks:
+## 4. Preserve the resolved style across formats
 
-- Language variant naming: Include language code, e.g., `deck-en.pptx`, `deck-fr.pptx`
+- Keep the packaged white/blue/amber identity only for brand-neutral output or
+  when the user explicitly accepts it as the fallback. Otherwise map the
+  approved brand palette to the same semantic roles across every format.
+- Use approved brand typefaces when supplied; otherwise use Bricolage Grotesque
+  headings, Instrument Sans body and IBM Plex Mono labels as neutral fallbacks.
+- Tracked uppercase eyebrows, assertive left-aligned headlines, generous margins.
+- Rounded cards, thin line icons, pills, labeled dashed boundaries and
+  lightly tinted frames that express relationships rather than decoration.
+- Stable geometry between overview and zoom slides. Meaningful connectors,
+  explicit labels and a small consistent footer.
+- Staged reveals that follow the speaker's explanation, not continuous motion.
 
----
+Use the numerical tokens and layout recipes in the design reference. Do not
+replace the selected palette with generic gradients, dark-blue slides or the
+default theme from another skill. Generic presentation-tool design suggestions
+must not override this explicitly chosen style.
 
-## Step 7: Validate and Iterate
+Choose icons by meaning and provenance:
 
-**Goal:** Review the deck for fidelity to identity, correctness, and polish.
+- For generic actions and concepts, use a single Lucide-style outline family.
+  Visit <https://lucide.dev> to browse all available glyphs (ISC license, free).
+  **Quick reference:** See [lucide-icons-reference.md](lucide-icons-reference.md) for 30+ common icons with copy-ready SVG paths.
+  Recommended mappings:
+  - `Database` or `Server`: systems of record
+  - `Workflow`: orchestration / process
+  - `Bot`: agents or AI actors
+  - `MessageSquare`: conversational channels
+  - `ShieldCheck`: governance / security
+  - `KeyRound`: access / authentication
+  - `FileSearch`: search / discovery
+  - `History`: audit / timeline
+  - `UserCheck`: human review / validation
+  - `Zap`: action / power
+  - `TrendingUp`: growth / success
+  - `AlertCircle`: warning / risk
+  
+  **To add a Lucide icon to your HTML slide:**
+  1. Go to <https://lucide.dev> and find the icon name (e.g., "database")
+  2. Click the icon to copy its SVG path data (or see [lucide-icons-reference.md](lucide-icons-reference.md))
+  3. Embed as an inline `<svg>` element in your HTML with `class="icon"` and `aria-hidden="true"` (if decorative)
+  4. Example:
+     ```html
+     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+       <ellipse cx="12" cy="5" rx="9" ry="3"/>
+       <path d="M3 5v14a9 3 0 0 0 18 0V5"/>
+     </svg>
+     ```
+  5. The CSS class `.icon` already defines sizing, stroke width and color (`var(--azure)`)
+  
+- For any named product or cloud service, use its current official vendor icon
+  rather than a generic cloud, database or AI glyph. Verify product identity,
+  icon provenance and permitted use before adding it. Microsoft and Azure
+  services use current official Microsoft architecture icons.
+  - Microsoft/Azure: <https://learn.microsoft.com/en-us/azure/architecture/icons/>
+  - Google Cloud: <https://cloud.google.com/architecture/icons>
+  - AWS: <https://aws.amazon.com/architecture/icons/>
+  - Apple: Official app store connect or design resources
+  
+- For a company, product or customer brand, use only an asset supplied or
+  explicitly approved by the user. Do not imitate a logo with a generic symbol.
+- Use familiar symbols for controls, such as arrows for previous/next and the
+  standard fullscreen glyph. Add visible text or a tooltip when meaning may be
+  ambiguous.
+- Keep icons subordinate to the message. An icon never replaces an essential
+  label, proves a claim, or carries status by color alone. Avoid emoji, mixed
+  filled/outline families, decorative sparkles and repeated icons on every card.
 
-### Validation Checklist
+Improve accessibility rather than copying reference defects: shorten long
+entrances, remove unnecessary infinite pulses, use readable type and accessible
+muted text, and keep all information available in static/reduced-motion output.
+Color alone is never a status, boundary or availability label.
 
-- [ ] **Identity fidelity:** Brand primary and accent colors are applied consistently; logo is present and properly sized
-- [ ] **Typography:** All headings are `--heading`, all body text is `--body`, all monospace is `--mono`
-- [ ] **Spacing and alignment:** Elements are evenly spaced (using cqw units); no orphaned text or cramped layouts
-- [ ] **Icons:** Correct family (all Lucide, or justified mix of Lucide + vendor icons); no color overrides on vendor marks
-- [ ] **Accessibility:** Text contrast ≥ 4.5:1 (WCAG AA); headings in logical order; alt text on images
-- [ ] **Animations:** Optional reveals are smooth and respect `prefers-reduced-motion` setting
-- [ ] **Cross-platform:** `.pptx` opens and renders correctly in PowerPoint, Google Slides, and Keynote
-- [ ] **Speaker notes:** Present and meaningful on each slide
-- [ ] **Multilingual (if applicable):** All target languages are complete; fonts support target scripts (CJK, Arabic, etc.)
+## 5. HTML output
 
-### Feedback Loop
+Start from the bundled standalone specimen, or adapt the project's existing
+viewer. Do not introduce React, a CDN or a build system merely to make slides.
+Inline CSS/SVG and a small vanilla controller are sufficient. Keep any approved
+images and fonts local; include font licenses when redistributing them.
 
-- **Collect feedback** — Share a draft with stakeholders, project managers, or decision-makers
-- **Document requested changes** — Note specific slides, elements, or messaging to adjust
-- **Iterate** — Update HTML deck, re-export, and validate
-- **Approve** — Obtain stakeholder sign-off before finalizing
+The starter uses local-font lookups with named fallbacks and makes no network
+requests. Exact-font fidelity still needs installed fonts or packaged licensed
+font files. If fonts are substituted, disclose that before final approval.
 
----
+Required behavior:
 
-## Step 8: Package Assets
+- Fit the 16:9 stage to both viewport dimensions without clipping.
+- Provide real, labeled previous/next and slide-selection buttons.
+- Support arrows, PageUp/PageDown, Home/End and hash links.
+- Do not hijack typing, modified shortcuts or native button/link activation.
+- Make focus visible and announce slide changes.
+- Reveal on entry and provide a static/reduced-motion mode; never gate
+  essential text on an animation finishing.
+- With JavaScript disabled, show all slides. Print all slides in final state
+  and omit viewer controls. Footnotes and actual links remain readable.
+- If fullscreen is provided, request it only after a user action and surface
+  unsupported/denied requests; it is not a prerequisite for presenting.
 
-**Goal:** Deliver the presentation and supporting files in a clean, documented package.
+For sources, use compact references in the slide or speaker notes and a real
+linked resources slide. Do not put a private preparation path in a public footer.
 
-### Deliverables
+## 6. Native, editable PowerPoint output
 
-```
-presentation-package/
-├── deck.pptx                    # Final PowerPoint (or deck-en.pptx, deck-light.pptx, etc. for variants)
-├── deck.html                    # Source HTML (for future edits or reference)
-├── BRANDING.md                  # Identity brief and design decisions (for handoff/governance)
-├── assets/
-│   ├── logo.svg                 # Brand logo (if extracted or original)
-│   ├── palette.json             # CSS token definitions
-│   └── [other brand/icon assets]
-└── README.md                    # How to edit, translate, or regenerate variants
-```
+The style skill owns the design; the installed `pptx` skill or native canvas
+owns file manipulation. Do not modify the installed PowerPoint skill.
 
-### BRANDING.md Template
+Use native text boxes, rounded rectangles, connectors and editable tables/charts
+where applicable. A whole-slide screenshot is not an editable slide.
+Small icons may be SVG or high-resolution images; group related components
+logically and preserve reading order, accessible labels and speaker notes.
 
-```markdown
-# Branding — [Presentation Title]
+Use 16:9 geometry. The design reference maps a 1280 x 720 CSS-pixel slide to
+13.333333 x 7.5 inches. Evaluate `cqw` at that fixed width before converting;
+do not interpret responsive CSS units directly as points.
 
-## Identity Brief
+For HTML conversion, consult the bundled `references\html-to-pptx.md`:
+capture entrance timing **before** freezing the DOM, extract final unscaled
+geometry, rebuild native shapes, then validate. This is a reconstruction method, not a universal exporter.
 
-- **Brand/Client:** [Name or "brand-neutral"]
-- **Authoritative Source:** [Kit URL, file, or specification]
-- **Dominant Color & Role:** [Name, hex, and role]
-- **Icon Policy:** [Family/policy and justification]
+Prefer simple native Appear/Fade builds. CSS spring effects, animated borders
+and line draws do not necessarily have faithful native equivalents. If the
+available tool cannot author or preserve a requested effect, deliver a readable
+static equivalent and state the limitation. Never claim animation parity from
+a static render. Only modify OOXML timing with schema validation afterwards.
 
-## Palette (CSS Tokens)
+Verify actual font family names and embedding rights. Avoid synthetic bold on
+an already-bold installed face. Package/allow embedding only licensed fonts;
+otherwise obtain approval for an explicit substitute. Do not promise
+pixel-identical HTML and PowerPoint without comparing both rendered outputs.
 
-\`\`\`css
---brand-primary: [hex];
---brand-accent: [hex];
---bg: [hex];
---text: [hex];
---text-muted: [hex];
-\`\`\`
+## 7. Inspect, fix, and hand off
 
-## Typography
+For HTML, inspect every slide at 1280 x 720 and 1920 x 1080, plus a smaller
+viewport. Exercise keyboard/button navigation, hash bounds, static mode,
+reduced motion, no-JavaScript and print output. Check overflow, reading order,
+focus, contrast, links, assets, browser errors and language fidelity. For French,
+explicitly scan visible copy and speaker notes for missing accents or cedillas.
 
-- **Headings:** [Font name, weight]
-- **Body:** [Font name, weight]
-- **Labels:** [Font name, weight]
+For PowerPoint, render and inspect every slide, extract the text, check
+editability and inspect the real presentation's layout. Follow the selected
+PowerPoint tool's validation procedure and use an independent visual reviewer
+when available and authorized. Validate after any package/XML
+edits and check animation behavior in a capable viewer when animations matter.
 
-## Logo and Assets
+Fix defects and re-inspect the affected output. Source-backed wording and
+privacy are separate from visual quality: both must hold.
 
-- **Logo:** [File/path or license]
-- **Icons:** [Family and provenance]
-
-## Variants
-
-- [ ] Light theme
-- [ ] Dark theme
-- [ ] Language variants: [list]
-
-## Maintenance
-
-To edit or regenerate:
-1. Open `deck.html` in a text editor
-2. Update CSS tokens in `<style>` section if palette changes
-3. Modify slide content as needed
-4. Convert to PowerPoint using [conversion tool]
-5. Update this document
-
----
-
-*Last updated: [date]*
-*Authored by: [creator/team]*
-```
-
-### Multilingual Package
-
-If authoring for multiple languages, organize as:
-
-```
-presentation-package/
-├── deck-en.pptx
-├── deck-fr.pptx
-├── deck-es.pptx
-├── deck-zh-HK.pptx
-├── sources/
-│   ├── deck-en.html
-│   ├── deck-fr.html
-│   ├── ...
-├── BRANDING.md (single, shared)
-└── README.md (translation notes)
-```
-
----
-
-## Workflow Summary
-
-| Step | Input | Decision/Action | Output |
-|---|---|---|---|
-| 1 | Request | Resolve 4-point identity brief | Identity brief (brand, source, color, icons) |
-| 2 | Identity brief | Gather brand kit, assets, content outline | Evidence (files, links, specs) |
-| 3 | Evidence | Plan slide sequence and narrative | Narrative outline + speaker notes |
-| 4 | Outline | Map identity to CSS tokens, layout rules | Design token specification |
-| 5 | Tokens + narrative | Author semantic HTML with CSS | HTML deck (approved) |
-| 6 | HTML | Export to PowerPoint | `.pptx` file (validated) |
-| 7 | `.pptx` | Review and iterate with feedback | Polished `.pptx` + sign-off |
-| 8 | Approved deck | Package with branding docs | Deliverable set (`.pptx`, `.html`, `BRANDING.md`) |
-
----
-
-## Notes
-
-- **Authority-first principle:** Supplied brand kits and authoritative sources take precedence over all defaults.
-- **Multilingual at any step:** Any step can introduce a new language variant; the workflow repeats only for divergent content (slides that differ by language).
-- **Delegation rule:** Delegated choices apply only the neutral fallback (Build style) if no authority exists and user explicitly approves; otherwise, delegated choices stay within supplied identity.
-- **Progressive refinement:** Each iteration refines the deck closer to the desired outcome; stakeholder feedback at Step 7 is expected and encouraged.
+Deliver the actual artifact path and a short explanation of how to open it,
+plus any genuine limitations (for example, font substitution or static builds).
+Never commit, publish, deploy, email or upload a presentation just because it
+renders. Follow the user's explicit delivery boundary.

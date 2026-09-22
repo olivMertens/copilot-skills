@@ -1,514 +1,312 @@
-# Design System: Brand-Aware Presentation Authoring
+# Build Presentation Design System
 
-## Overview
+## Reference and scope
 
-This design system provides authoritative visual rules for brand-aware decks. **It is not a template or default style.** Instead, it serves as a reference for consistency, accessibility, and responsive behavior.
+Visual reference: the published eight-slide **Agentic Platform** deck at
+<https://ozgurkarahan.com/agentic-platform/>.
 
-**Key principle:** The resolved identity brief (brand, dominant color, icon policy) takes precedence. The system enables you to apply that identity coherently across all slides.
+Use its diagram-led composition. Its white slides and blue/amber accents form
+the packaged brand-neutral fallback, not an identity to impose on every deck.
+The website homepage uses a different palette and is not the style reference.
+No local source checkout is required; this document and the bundled specimen
+provide the reusable design rules.
 
----
+The reference supplies composition, not factual authority. Its product names,
+status badges, metrics and dates must not be copied as current claims.
 
-## Color & Typography
+## Palette
 
-### Color Tokens (CSS Variables)
+Resolve the identity brief before selecting this palette. When a target brand
+is known, use its authoritative semantic colors instead. When the brand,
+client, dominant color or authoritative source is unknown or ambiguous, ask
+the user rather than sampling a logo, searching for likely colors or carrying
+forward another client's identity. Use this table only when the user requests
+a neutral deck, or when no authoritative identity exists and the user delegates
+the choice or approves it as fallback.
 
-Define these in the `<style>` section of your HTML deck. Use **semantic role names**, not color names:
-
-```css
-:root {
-  /* Brand identity colors */
-  --brand-primary: #203859;      /* Primary color (trust, hierarchy, text) */
-  --brand-accent: #61C1B6;       /* Accent color (action, highlights) */
-  --brand-secondary: #E67E22;    /* Secondary/tertiary (sparse, warnings) */
-  
-  /* Surface and text */
-  --bg: #F7F9FB;                 /* Page background */
-  --paper: #FFFFFF;              /* Card/slide background */
-  --text: #1A1A1A;               /* Primary text (high contrast) */
-  --text-muted: #5A6472;         /* Secondary/muted text */
-  
-  /* Semantic states */
-  --success: #1E7D4B;            /* Success, completion, confirmation */
-  --warning: #B5790F;            /* Caution, pending, review */
-  --error: #C41C1C;              /* Error, blocked, failure */
-}
-
-/* Dark theme variant (optional) */
-[data-theme="dark"] {
-  --bg: #0A0E12;
-  --paper: #1A2332;
-  --text: #E8EAED;
-  --text-muted: #9AA0A8;
-  --brand-primary: #B0D4F1;      /* Inverted/lightened version */
-  --brand-accent: #4ED9CC;       /* Inverted/lightened version */
-}
-```
-
-### Typography Stack
-
-Use a coherent three-font stack:
-
-| Font | Weight | Use |
+| Token | Hex | Role |
 |---|---|---|
-| **Bricolage Grotesque** | 800 | H1 (hero title) |
-| **Bricolage Grotesque** | 600 | H2, H3 (section headers) |
-| **Instrument Sans** | 400 | Body text, paragraphs |
-| **Instrument Sans** | 600 | Emphasis, strong text |
-| **IBM Plex Mono** | 400 | Code, labels, metadata |
-| **IBM Plex Mono** | 600 | Emphasized code/labels |
-
-#### Font Declaration
-
-```css
-@font-face { font-family: "Bricolage Grotesque"; font-weight: 800; src: local("Bricolage Grotesque ExtraBold"); }
-@font-face { font-family: "Bricolage Grotesque"; font-weight: 600; src: local("Bricolage Grotesque SemiBold"); }
-@font-face { font-family: "Instrument Sans"; font-weight: 400; src: local("Instrument Sans Regular"); }
-@font-face { font-family: "Instrument Sans"; font-weight: 600; src: local("Instrument Sans SemiBold"); }
-@font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: local("IBM Plex Mono Regular"); }
-@font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: local("IBM Plex Mono SemiBold"); }
-
-:root {
-  --heading: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", sans-serif;
-  --body: "Instrument Sans", "Segoe UI", Arial, sans-serif;
-  --mono: "IBM Plex Mono", Consolas, monospace;
-}
-```
-
-#### Sizing Scale
-
-```css
-/* Heading sizes (cqw units for responsive scaling) */
-h1 { font: 800 3.35cqw / 1.08 var(--heading); }  /* Hero title */
-h2 { font: 600 1.9cqw / 1.2 var(--heading); }   /* Section header */
-h3 { font: 600 1.9cqw / 1.2 var(--heading); }   /* Subsection header */
-
-/* Body text sizes */
-.body-lg { font: 400 1.8cqw / 1.45 var(--body); }  /* Large body */
-.body { font: 400 1.7cqw / 1.4 var(--body); }      /* Standard body */
-.body-sm { font: 400 1.5cqw / 1.35 var(--body); }  /* Small body */
-
-/* Labels and metadata */
-.label { font: 600 1.25cqw / 1.2 var(--mono); }  /* Card labels */
-.caption { font: 400 1.1cqw / 1.35 var(--mono); } /* Captions */
-```
-
-### Contrast and Accessibility
-
-- **Text on background:** Minimum 4.5:1 contrast (WCAG AA)
-- **Text on colored areas:** Test with color contrast tools; adjust `--text` or background if needed
-- **Links:** Use `--brand-accent` with underline (`text-decoration: underline`); underline-offset: `0.15em`
-
----
-
-## Layout & Spacing
-
-### Container-Based Sizing (cqw)
-
-All responsive measurements use CSS Container Query Width units (`cqw`). The slide container is the reference:
-
-```css
-.slide {
-  position: relative;
-  width: min(1280px, 100%);           /* Max 1280px, scale down on smaller screens */
-  aspect-ratio: 16 / 9;
-  container-type: inline-size;        /* Enable cqw units */
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 24px 60px rgba(16, 40, 63, 0.14);
-}
-
-.slide-inner {
-  position: absolute;
-  inset: 0;
-  padding: 3cqw 4cqw 2cqw;           /* Proportional padding */
-  display: flex;
-  flex-direction: column;
-  gap: 1.25cqw;                       /* Proportional gap */
-}
-```
+| `paper` | `#FFFFFF` | Slide surface |
+| `bg` | `#EDF1F7` | Outer surround |
+| `ink` | `#16202F` | Main text |
+| `muted` | `#53617A` | Accessible secondary text on white and tinted surfaces |
+| `line` | `#E2E8F2` | Decorative separators, not meaningful boundaries alone |
+| `azure` | `#0F6CBD` | Main emphasis, diagram icons, current step |
+| `azure-soft` | `#EAF3FC` | Selected/response card fill |
+| `azure-line` | `#BBD7F0` | Blue card borders |
+| `amber` | `#A64B00` | Contrast, selected emphasis, governance label |
+| `amber-soft` | `#FFF4E4` | Highlight/governance fill |
+| `amber-line` | `#F0C078` | Highlight frame |
+| `success` | `#1F7A55` | Confirmed or realized status text |
+| `success-soft` | `#EFFAF5` | Confirmed or realized status fill |
+| `success-line` | `#A8D7C3` | Confirmed or realized status frame |
+| `sand` | `#9FB4D0` | Original dashed boundary color |
+| `node` | `#F7F9FC` | Neutral cards |
+| `shadow-soft` | `#16202F1A` | Slide elevation shadow |
+| `shadow-float` | `#16202F2E` | Floating control or notes shadow |
+
+Blue is the main accent, not the background. Amber should explain a distinction,
+not decorate every card. For meaningful dashed boundaries, use a darker stroke
+such as `muted` and an explicit label; pale source borders alone do not
+meet non-text contrast needs. Never rely on color alone for status.
+
+The viewer may be dark (`#0B1020`), as in the published deck; the **slides stay
+white**. The neutral specimen uses the light surround for simpler print parity.
+
+## Typography and density
+
+| Role | Preferred family | Reference behavior | Reusable target at 1280 px width |
+|---|---|---|---|
+| Headline | Bricolage Grotesque, 800 | Tight, expressive, `-.02em` tracking | 40-48 px |
+| Card/stage title | Bricolage Grotesque, 600 | Compact strong hierarchy | 24-28 px |
+| Body | Instrument Sans, 400/500/600 | Left-aligned, line height 1.35-1.5 | 22-24 px |
+| Eyebrow/step | IBM Plex Mono, 400/500 | Uppercase, `.1em`-`.22em` tracking | 16-18 px |
+| Source/footer | IBM Plex Mono | Small consistent metadata | 14-16 px, no essential argument here |
+
+Fallbacks: `Trebuchet MS`/`Segoe UI` for headings, `Segoe UI`/Arial for body,
+Consolas for mono. Fallbacks make the specimen usable offline; they do not
+establish exact-font fidelity. Final delivery should package appropriately
+licensed fonts or clearly identify an approved substitution.
+
+Do not repeat the source deck's very small `.58cqw`-`.9cqw` labels for essential
+content. Shorten copy, split the slide or move details into notes. Avoid more
+than four response cards on a projected slide. A card usually contains a title
+and one short sentence. A main headline should wrap at most twice.
+
+## Canvas and geometry
+
+- 16:9; author/test at **1280 x 720 CSS px**.
+- Source `.slide-inner` uses top/right/bottom/left padding
+  `3cqw 4cqw 2cqw 4cqw`: 38.4 / 51.2 / 25.6 / 51.2 px at the reference width.
+- Use 1.1-1.6cqw gaps (about 14-20 px); expand when copy or projection needs it.
+- Cards have 10-12 px radii; shared governance frames about 14 px.
+- Thin 1-1.6 px decorative borders; no large drop shadows inside every card.
+- Viewer chrome and page shadow belong outside the exported slide.
+- Size the stage against **both** viewport width and height. `100vw` alone
+  clips slides in short windows.
+- Scope `cqw` to each slide (`container-type: inline-size`). Position descendants
+  inside it; do not accidentally resolve typography against the browser width.
+
+## Diagram grammar
+
+Use small inline outline SVGs: nominal 24 x 24 viewBox, stroke width 1.6-1.8,
+round caps and joins. Make purely decorative icons `aria-hidden`; give a real
+diagram its own text description. Prefer native shapes for large geometry.
+
+### Icon hierarchy
+
+Resolve the icon policy with the identity brief, then let semantics determine
+the individual glyphs. Keep one visual grammar within a deck:
+
+1. **Generic concepts:** use Lucide or an equivalent Lucide-style outline set.
+  Useful mappings include `Database`/`Server` for a system of record,
+  `Workflow` for orchestration, `Bot` for an agent, `MessageSquare` for a
+  channel, `PlugZap` for an adapter, `ShieldCheck` for governance, `KeyRound`
+  for access, `FileSearch` for evidence, `History` for audit and `UserCheck`
+  for human validation.
+  
+  **How to add Lucide icons to your HTML deck:**
+  - Source: <https://lucide.dev> (ISC license, free for any use)
+  - Quick reference: See [lucide-icons-reference.md](lucide-icons-reference.md) for 30+ common icons with SVG paths
+  - Each icon has a 24×24 viewBox with stroke paths
+  - Copy the SVG path data and embed as inline `<svg>` with `class="icon"`
+  - Stroke width is controlled by CSS: `--icon { stroke-width: 1.7; }`
+  - Example: `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 20 0"/></svg>`
+  - Do NOT use a CDN; embed SVG paths inline for offline-first delivery
+  
+2. **Named vendor products:** use the current official vendor icon and verify
+  its provenance and permitted use. For example, Azure Container Apps,
+  Microsoft Foundry, Azure AI Search and Microsoft 365 use current official
+  Microsoft architecture icons rather than generic glyphs.
+  
+  **Vendor icon sources** (verify current provenance):
+  - Microsoft/Azure: <https://learn.microsoft.com/en-us/azure/architecture/icons/>
+  - Google Cloud: <https://cloud.google.com/architecture/icons>
+  - AWS: <https://aws.amazon.com/architecture/icons/>
+  - Apple: Official App Store connect assets
+  - Others: Vendor-supplied icon/logo kits (always verify usage rights)
+  
+3. **Brands:** use only supplied or approved logo assets and preserve their
+  aspect ratio, exclusion zone and colors.
+4. **Controls:** use familiar arrow, home, fullscreen, print and notes symbols;
+  retain an accessible name and add text or a tooltip when needed.
 
-### Spacing Scale
+Do not use emoji as icons. Keep generic concept icons in one family; approved
+brand marks and official vendor icons are deliberate exceptions and should not
+be redrawn to imitate that family. Avoid generic AI sparkles unless the concept
+is literally generation; for agents, show the actor or workflow role instead.
+Icons support scanning, but the adjacent label carries the meaning.
 
-```css
-:root {
-  --space-xs: 0.55cqw;   /* 7px at 1280px base */
-  --space-sm: 0.7cqw;    /* 9px */
-  --space-md: 1cqw;      /* 12.8px */
-  --space-lg: 1.25cqw;   /* 16px */
-  --space-xl: 1.55cqw;   /* 20px */
-  --space-2xl: 2cqw;     /* 25.6px */
-}
-```
-
-### Radius Scale
-
-```css
-:root {
-  --radius-sm: 4px;
-  --radius-md: 7px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
-  --radius-pill: 999px;
-}
-```
+**Accessibility reminder:** All purely decorative icons must have `aria-hidden="true"`.
+Meaningful diagrams should have an accessible name (e.g., `<svg ... title="Database server">`).
+
+### Brand identity override
 
-### Grid Layout Example
+An approved brand kit overrides the default blue/amber palette and typefaces,
+but not the deck's accessibility, spacing or diagram discipline. Define brand
+colors as semantic tokens such as `brand-primary`, `brand-accent`, `surface`,
+`text` and `text-muted`; do not scatter raw values through slide rules. Keep a
+light and dark logo variant when the kit provides both, and choose the variant
+from the actual background rather than adding an improvised badge behind it.
 
-```css
-.two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2cqw;
-}
+The logo identifies the presentation; it is not a decorative icon. Prefer one
+consistent placement on the title, closing slide or master/footer. Preserve its
+aspect ratio, clear space and minimum size, and never recolor, crop, stretch,
+outline or reconstruct it. If the brand palette fails contrast requirements,
+keep the brand color for large accents and use an accessible approved text tone.
 
-.three-column {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1cqw;
-}
-```
-
----
-
-## Icon Systems
-
-### Generic Concepts (One Family)
-
-For universal concepts (document, gear, heart, checkmark, etc.), choose **one outline icon family** and use it consistently:
-
-**Recommended families:**
-- [Lucide Icons](https://lucide.dev) — Feather-weight, 24×24 base, excellent coverage (ISC license)
-- [Feather Icons](https://feathericons.com) — Minimal, clean, 24×24 base
-- [Heroicons](https://heroicons.com) — Professional, 24×24 base (MIT license)
-
-**Do not mix outline families within generic concepts.** All generic icons must come from the same family.
-
-### Official Vendor Icons
-
-For named vendor products (Microsoft, Apple, Google, Amazon, etc.), use **official vendor icons only:**
-
-- **Microsoft/Azure:** [Microsoft Icons](https://aka.ms/MsiconsCollections) and [Azure Icon Gallery](https://learn.microsoft.com/en-us/azure/architecture/icons/)
-- **Apple:** [SF Symbols](https://developer.apple.com/sf-symbols/)
-- **Google:** [Material Design Icons](https://fonts.google.com/icons)
-- **Amazon:** [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)
-
-**Verify provenance.** Confirm icons are sourced from official registries; do not use third-party recreations.
-
-**Preserve geometry.** Vendor icons must not be resized, recolored, or distorted; use them as-is.
-
-### Brand Marks and Custom Assets
-
-If your brand has custom icons or marks:
-
-- **Preserve geometry and color** — Do not override vendor brand colors with semantic tokens
-- **Provide in multiple formats** — SVG preferred for scales up to 2000×2000 px; PNG at 2× base size as fallback
-- **Include in `BRANDING.md`** — Document provenance, license, and usage rules
-
-### Mixing Policy
-
-- **Do not mix within generic concepts:** All document icons are Lucide, not Lucide + Feather.
-- **Vendor exceptions are deliberate:** If a slide shows "Microsoft Teams" and "Slack", using their official icons is correct and encouraged.
-- **Brand marks are standalone:** A brand logo is never mixed with generic icon families; it appears separate or as a full-width header.
-
-### Icon Sizing and Styling
-
-```css
-.icon-sm { width: 1.2cqw; height: 1.2cqw; }     /* Small badges */
-.icon { width: 2.4cqw; height: 2.4cqw; }        /* Standard */
-.icon-lg { width: 3.5cqw; height: 3.5cqw; }     /* Large / hero */
-
-.icon { fill: none; stroke: currentColor; stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round; }
-```
-
----
-
-## Component Library
-
-### Card / Contained Element
-
-```css
-.card {
-  padding: 1.1cqw;
-  border: 1px solid var(--text-muted);
-  border-radius: var(--radius-lg);
-  background: var(--paper);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.card.brand-tinted {
-  border-color: var(--brand-accent);
-  background: color-mix(in srgb, var(--brand-accent) 8%, var(--paper));
-}
-```
-
-### Badge / Pill
-
-```css
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-md);
-  border: 1px solid var(--text-muted);
-  border-radius: var(--radius-pill);
-  font: 400 1.25cqw / 1 var(--mono);
-  color: var(--text-muted);
-  background: var(--paper);
-}
-
-.badge.success {
-  border-color: var(--success);
-  color: var(--success);
-  background: color-mix(in srgb, var(--success) 8%, var(--paper));
-}
-```
-
-### Callout / Outcome Box
-
-```css
-.outcome {
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
-  padding: 0.8cqw 1.1cqw;
-  border: 1px solid var(--brand-accent);
-  border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--brand-accent) 8%, var(--paper));
-  font: 400 1.7cqw / 1.35 var(--body);
-}
-
-.outcome strong {
-  flex: none;
-  font-weight: 600;
-  color: var(--brand-primary);
-}
-```
-
-### Flow/Process Step
-
-```css
-.flow-step {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  padding: 1cqw;
-  border: 1px solid var(--text-muted);
-  border-radius: var(--radius-lg);
-  background: var(--paper);
-}
-
-.step-number {
-  width: 3cqw;
-  height: 3cqw;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--brand-primary);
-  color: var(--paper);
-  font: 600 1.55cqw var(--heading);
-}
-```
-
----
-
-## Motion & Animation
-
-### Entrance Animations
-
-Optional reveals for staged presentation:
-
-```css
-@keyframes enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
-}
-
-.reveal {
-  animation: enter 0.55s ease both;
-  animation-delay: var(--delay, 0s);
-}
-
-/* Example: stagger 5 reveals */
-.slide .reveal:nth-child(1) { --delay: 0s; }
-.slide .reveal:nth-child(2) { --delay: 0.2s; }
-.slide .reveal:nth-child(3) { --delay: 0.4s; }
-.slide .reveal:nth-child(4) { --delay: 0.6s; }
-.slide .reveal:nth-child(5) { --delay: 0.8s; }
-```
-
-### Motion Preference
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-```
-
----
-
-## Responsive Behavior
-
-### Base Sizes
-
-```css
-/* At 1280px slide width */
-h1: 3.35cqw = 43px
-h2: 1.9cqw = 24px
-body: 1.7cqw = 22px
-label: 1.25cqw = 16px
-
-/* At 800px slide width */
-h1: 3.35cqw = 27px
-h2: 1.9cqw = 15px
-body: 1.7cqw = 14px
-```
-
-### Media Queries
-
-```css
-/* Large screens (1400px+) */
-@media (min-width: 1400px) {
-  .slide { width: 1400px; }  /* Explicit max, or max-width: 100%; */
-}
-
-/* Tablets and small screens */
-@media (max-width: 768px) {
-  .slide { padding: 2.5cqw 3cqw; gap: 1cqw; }
-  h1 { font-size: 2.8cqw; }  /* Scale down if needed */
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .slide { padding: 2cqw; gap: 0.8cqw; }
-  h1 { font-size: 2.2cqw; }
-  .multi-col { grid-template-columns: 1fr; }  /* Stack columns */
-}
-```
-
----
-
-## Dark Theme Implementation
-
-If dark mode is needed, define theme-aware tokens:
-
-```css
-:root {
-  color-scheme: light;
-  --bg: #F7F9FB;
-  --paper: #FFFFFF;
-  --text: #1A1A1A;
-  /* ... other tokens ... */
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0A0E12;
-  --paper: #1A2332;
-  --text: #E8EAED;
-  /* ... ensure all tokens have dark variants ... */
-}
-
-/* Automatic: respect user system preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    /* Apply dark theme by default */
-    --bg: #0A0E12;
-    --paper: #1A2332;
-    --text: #E8EAED;
-  }
-}
-```
-
----
-
-## Multilingual Typography
-
-### Font Support
-
-The default stack (Bricolage Grotesque, Instrument Sans, IBM Plex Mono) supports:
-
-- **Latin** — English, French, Spanish, German, Portuguese, etc.
-- **Cyrillic** — Russian, Ukrainian, etc.
-- **Greek** — Greek
-- **Arabic** — Arabic, Farsi, Urdu (right-to-left; requires `lang` and `dir` attributes)
-- **CJK** — Limited; add fallback fonts for Chinese, Japanese, Korean
-
-### Extended Font Stack (CJK)
-
-For Chinese (Simplified/Traditional), Japanese, or Korean:
-
-```css
-@font-face { font-family: "Noto Sans SC"; font-weight: 400; src: local("Noto Sans SC Regular"); }
-@font-face { font-family: "Noto Sans SC"; font-weight: 600; src: local("Noto Sans SC SemiBold"); }
-
-:root {
-  --heading-cjk: "Bricolage Grotesque", "Noto Sans SC", "Segoe UI", sans-serif;
-  --body-cjk: "Instrument Sans", "Noto Sans SC", "Segoe UI", sans-serif;
-}
-
-html[lang="zh-HK"] h1, html[lang="zh-CN"] h1 { font-family: var(--heading-cjk); }
-html[lang="zh-HK"] body, html[lang="zh-CN"] body { font-family: var(--body-cjk); }
-```
-
-### Language Direction (Right-to-Left)
-
-```html
-<html lang="ar" dir="rtl">
-```
-
-In CSS:
-
-```css
-html[dir="rtl"] .slide-inner { direction: rtl; text-align: right; }
-html[dir="rtl"] .badge { margin-left: auto; }  /* Flip layout */
-```
-
----
-
-## Printing and PDF Export
-
-### Print Styles
-
-```css
-@page {
-  size: 13.333333in 7.5in;  /* 16:9 at standard resolution */
-  margin: 0;
-}
-
-@media print {
-  html, body { margin: 0; background: white; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .slide { display: block; width: 13.333333in; height: 7.5in; margin: 0; break-after: page; border: none; box-shadow: none; }
-  .controls, .speaker-notes { display: none; }
-  .reveal { animation: none !important; opacity: 1 !important; }
-}
-```
-
----
-
-## Checklist: Design System Application
-
-- [ ] **Color tokens defined** — `--brand-primary`, `--brand-accent`, `--bg`, `--text`, `--text-muted`
-- [ ] **Typography stack** — Bricolage Grotesque (headings), Instrument Sans (body), IBM Plex Mono (labels)
-- [ ] **Font sizes** — `h1` 3.35cqw, `h2` 1.9cqw, body 1.7cqw
-- [ ] **Spacing** — All gaps and padding use cqw units; radii use defined scale
-- [ ] **Icons** — One generic family (Lucide, Feather, etc.); vendor icons from official sources only
-- [ ] **Cards and components** — Use standard classes (`.card`, `.badge`, `.outcome`)
-- [ ] **Animations** — Optional staggered reveals with `@keyframes enter` and `--delay` variable
-- [ ] **Accessibility** — Text contrast ≥ 4.5:1; heading hierarchy preserved; `lang` and `dir` attributes set
-- [ ] **Responsive** — Slide scales with container-query units; media queries for small screens if needed
-- [ ] **Dark theme** — All tokens have `[data-theme="dark"]` variants (if dark mode needed)
-- [ ] **Print styles** — `@page` and `@media print` rules ensure correct sizing and hiding of UI
-
----
-
-## References
-
-- [CSS Container Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Container_queries)
-- [WCAG Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Lucide Icons](https://lucide.dev)
-- [Microsoft Icons](https://aka.ms/MsiconsCollections)
+Do not confuse visual research with authorization. A logo found in the project
+may establish an available asset, but it does not by itself establish the
+target client, dominant color, complete palette or permission to recolor the
+deck. Ask when those decisions are not explicit. If the user authorizes palette
+extraction from artwork, present the sampled values as a proposal and obtain
+approval before applying them throughout the deck.
+
+| Motif | Meaning |
+|---|---|
+| Rounded neutral card | Actor, stage or capability |
+| Primary-tinted card | Current focus or concrete response |
+| Accent frame with a label | Shared policy, constraint, governance or chosen contrast |
+| Dashed labeled container | Execution or responsibility boundary |
+| Short pill | Status, category or lifecycle step; always text-labeled |
+| Connector/arrow | Actual direction, dependency or handoff |
+| Outcome bar | One consequence or next step, not another paragraph |
+
+Align connector endpoints with the intended cards. Do not run lines through
+labels. Where a boundary matters, put its label and contents inside it.
+
+## Layout recipes
+
+### A. Shift + concept map
+
+Top left: eyebrow and a two-part headline ("From ..." / "To ...").
+Use a muted old state and a bold brand-primary new state; an accent
+strike-through is optional, never the only indication of which state is old.
+
+Under it, use an audience row, a clearly labeled shared boundary containing
+two delivery lanes, then a shared-capabilities row. End with one takeaway.
+Describe concepts before product names.
+
+### B. Same map, real implementation
+
+Duplicate A's coordinates, reading order and grouping. Replace concept labels
+with verified components. The audience should recognize the structure instantly.
+Do not redraw the whole architecture simply because names appeared.
+Reserve identical header, diagram and footer slots across the pair so a shorter
+title cannot shift the map vertically. The specimen's paired headers reserve
+9cqw; compare the corresponding card rectangles after changing text.
+
+### C. Lifecycle with responsibility
+
+Three main stages with compact numbered labels and connectors. Give a complex
+middle stage more width if needed; do not flatten everything into equal boxes.
+Put shared constraints in one encompassing labeled band. Add a clearly labeled
+feedback path only where the system actually has one.
+
+### D. Focused lifecycle overview
+
+Show the whole lifecycle, emphasizing the one or two stages the talk is about.
+Other stages remain legible but quieter. An optional brand-accent feedback step
+must have text explaining the distinction. No "new", "GA" or "already solved"
+status without evidence and an as-of date.
+
+### E. Problem -> response -> outcome
+
+Small problem card on the left, clear bridge, larger response area on the right.
+Use a 2 x 2 response grid at most; keep any current lifecycle step in a compact
+stepper. End with a wide outcome bar. This is the specimen's zoom slide.
+
+### F. Capability boundary
+
+One large dashed runtime/container with an explicit boundary label; small
+capability cards inside. One brand-accent exception/identity card is enough.
+Do not imply included services, security guarantees or pricing from placement.
+
+### G. Resources and decision
+
+Two or three resource groups with real, descriptive links and one final action.
+No non-clickable `<a>` elements. Keep private prep sources out of public slides.
+
+## Motion and static state
+
+Use motion to explain reading order:
+
+1. Eyebrow/headline.
+2. Main diagram or problem.
+3. Supporting cards in order.
+4. Shared frame/outcome.
+
+Typical entrance duration: 400-800 ms. Stagger neighboring cards by 150-300 ms.
+Small upward motion (about 6-12 px) or restrained pop is sufficient. Prefer
+finishing a simple slide's entrance within 2-3 seconds; the original 6-second
+build is not mandatory.
+
+Do not animate every word, auto-advance slides, or add continuous drift.
+Unnecessary infinite pulse markers are omitted. Essential labels exist in the
+static DOM and no-JavaScript output.
+
+## Language fidelity
+
+Presentation typography includes orthography. Keep source files and generated
+artifacts in Unicode and preserve the requested language exactly. For French,
+retain accents, cedillas, ligatures and accented capitals in headings, labels,
+notes and controls: « accès », « capacité », « façade », « décision », « cœur »,
+« ÉTAPE », « À VALIDER ». Never output `acces`, `capacite`, `facade`, `decision`
+or `coeur` as a workaround for encoding or font problems.
+
+Use French punctuation conventions when they fit the medium: quotation marks
+« … » and non-breaking spaces before `:`, `;`, `?` and `!`. Confirm that the
+chosen fonts contain the required glyphs in HTML and PowerPoint. A fallback
+font is preferable to missing glyphs or stripped accents.
+
+Provide a static mode. For `prefers-reduced-motion: reduce` and print,
+remove animation/delays and set final opacity/transform explicitly. A
+completed screenshot is not evidence that animated playback works.
+
+## PowerPoint mapping
+
+Use a native wide slide: **13.333333 x 7.5 inches**.
+
+| Quantity | Conversion from reference HTML |
+|---|---|
+| Position/size in inches | CSS px / 96 |
+| Position/size in EMU | CSS px * 9525 |
+| Font size in points | CSS px * 0.75 |
+| 1cqw at 1280 px | 12.8 px = 0.133333 in = 9.6 pt for text |
+| Left/right inset | 51.2 px = 0.533333 in |
+| Top inset | 38.4 px = 0.4 in |
+| 44 px headline | 33 pt |
+| 24 px body | 18 pt |
+| 16 px metadata | 12 pt |
+
+These conversions assume the slide is measured at its **unscaled reference
+size**, not after a viewer transform. If the canvas reports other units, inspect
+its schema and convert once; never apply both conversions.
+
+Map CSS cards to native roundrects, pills to roundrects (not stretched ellipses),
+text to real runs and connectors to native connectors. Set text margins
+explicitly. Check line wrapping, family names, bold weights and theme shadows.
+Use native tables/charts for data instead of screenshotting them.
+
+Keep the same component positions and semantic grouping as HTML. A simple
+native Fade/Appear is a valid equivalent to a CSS reveal; springs, animated
+border draws and pseudo-elements need a deliberate approximation.
+If timing is extracted from HTML, capture it before disabling animations.
+
+Follow the installed PowerPoint tool's authoring/validation guidance and the
+bundled `references\html-to-pptx.md`. Resolve these bundled paths from the
+directory containing `SKILL.md`. Do not assume a universal HTML exporter.
+
+## Specimen and review expectations
+
+`assets\starter.html` contains neutral concept, implementation, lifecycle and
+zoom examples. It is a reusable building block, not a source-backed final talk.
+Replace its example labels, footers and references when authoring.
+
+The specimen has no external assets, telemetry or application dependencies.
+It uses local-font aliases and fallbacks. Opening it does not fetch any public
+website or private wiki content.
+
+A final deck should retain this grammar while being simpler than the source
+where readability requires it. Inspect the rendered output rather than treating
+a valid HTML or PPTX file as evidence of visual quality.
