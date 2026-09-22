@@ -81,6 +81,13 @@ Convert exactly once. A canvas may already report points or inches.
 - Preserve component geometry between concept and implementation slides.
 - Keep diagram grouping logical and preserve accessibility/reading order.
 - Put speaker notes and sources in the appropriate native fields.
+- Match the measured font size of every text role (heading, body, eyebrow,
+  caption, footer) via `points = px x 0.75`; do not uniformly shrink text to
+  make it fit. If a box overflows at the correct size, enable the tool's
+  shrink-to-fit rather than hand-picking a smaller size everywhere.
+- Place secondary rows at their own measured coordinates. In particular, read
+  and reproduce the **footer** baseline instead of guessing it: a footer placed
+  too high collides with the outcome/summary bar above it.
 - Check theme defaults: unintended shadows, line styles and text padding can
   alter the result even when all measured coordinates are correct.
 
