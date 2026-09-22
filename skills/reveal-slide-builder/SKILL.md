@@ -1,3 +1,69 @@
+---
+name: reveal-slide-builder
+title: "Reveal.js Slide Builder — Mastermind Edition"
+description: |
+  Create world-class, audience-focused presentations with reveal.js through expert guidance on 
+  animations, transitions, fragments, auto-animate, layouts, accessibility, offline delivery, and PDF export.
+category: presentation
+tags:
+  - reveal.js
+  - presentation
+  - slides
+  - html
+  - speaker-view
+  - animations
+  - accessibility
+  - offline
+triggers:
+  - "create a presentation"
+  - "build slides"
+  - "new reveal.js deck"
+  - "plan a talk"
+  - "structure slide flow"
+  - "narrative arc"
+  - "progressive reveal"
+  - "animate my slides"
+  - "add movement"
+  - "animation transitions"
+  - "auto-animate elements"
+  - "custom fragments"
+  - "speaker view"
+  - "presenter notes"
+  - "offline deck"
+  - "PDF export"
+  - "accessible presentation"
+  - "code walkthroughs"
+  - "diagram animations"
+  - "reveal.js plugins"
+useCases:
+  - Design a new presentation deck
+  - Architect slide flow & interactivity
+  - Master animations & transitions
+  - Leverage reveal.js plugins
+  - Build accessible, audience-focused presentations
+  - Export for different formats
+  - Plan reveal.js special features
+  - Master advanced patterns
+features:
+  - Speaker view with notes and timer
+  - Auto-animate for smooth transitions between elements
+  - Fragments for progressive reveals
+  - PDF export support
+  - Offline delivery (file://)
+  - Multiple theme options
+  - Code highlighting
+  - Plugin architecture
+  - Accessibility checklist
+technologies:
+  - HTML/CSS/JavaScript
+  - Reveal.js 6.0.2
+  - Markdown
+  - Speaker view
+  - PDF export
+difficulty: intermediate
+estimatedTime: 30-60 minutes per deck
+---
+
 # Reveal.js Slide Builder — Mastermind Edition
 
 Create world-class, audience-focused presentations with reveal.js through expert guidance on **animations, transitions, fragments, auto-animate, layouts, accessibility, offline delivery, and PDF export**.
