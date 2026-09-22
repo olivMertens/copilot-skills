@@ -1,0 +1,113 @@
+name: reveal-slide-builder
+title: "Reveal.js Slide Builder — Mastermind Edition"
+description: |
+  Create world-class, audience-focused presentations with reveal.js through expert guidance on 
+  animations, transitions, fragments, auto-animate, layouts, accessibility, offline delivery, and PDF export.
+
+category: presentation
+tags:
+  - reveal.js
+  - presentation
+  - slides
+  - html
+  - speaker-view
+  - animations
+  - accessibility
+  - offline
+
+triggers:
+  - "create a presentation"
+  - "build slides"
+  - "new reveal.js deck"
+  - "plan a talk"
+  - "structure slide flow"
+  - "narrative arc"
+  - "progressive reveal"
+  - "animate my slides"
+  - "add movement"
+  - "animation transitions"
+  - "auto-animate elements"
+  - "custom fragments"
+  - "speaker view"
+  - "presenter notes"
+  - "offline deck"
+  - "PDF export"
+  - "accessible presentation"
+  - "code walkthroughs"
+  - "diagram animations"
+  - "reveal.js plugins"
+
+useCases:
+  - Design a new presentation deck
+  - Architect slide flow & interactivity
+  - Master animations & transitions
+  - Leverage reveal.js plugins
+  - Build accessible, audience-focused presentations
+  - Export for different formats
+  - Plan reveal.js special features
+  - Master advanced patterns
+
+phases:
+  - Audience & Intent Discovery
+  - Content Mapping & Narrative Arc
+  - Animation & Plugin Strategy
+  - Layout, Pacing, & Accessibility
+  - Implementation & Export
+
+skillPath: skills/reveal-slide-builder/SKILL.md
+skillFile: SKILL.md
+
+templates:
+  - name: minimal-reveal
+    title: Minimal Reveal.js Template with Speaker View
+    description: Basic structure showing speaker notes and speaker view setup
+    
+  - name: fluent-design
+    title: Microsoft Fluent Design Template
+    description: Professional layout with Fluent Design principles, colors, and typography
+    
+  - name: code-walkthrough
+    title: Auto-Animate Code Walkthrough
+    description: Progressive reveal for code evolution with smooth animations
+    
+  - name: comparison
+    title: Two-Column Comparison Layout
+    description: Side-by-side layout for comparing options with fragments
+    
+  - name: accessibility
+    title: Accessibility Checklist Template
+    description: WCAG AA verification checklist for presentations
+
+features:
+  - Speaker view with notes and timer
+  - Auto-animate for smooth transitions between elements
+  - Fragments for progressive reveals
+  - PDF export support
+  - Offline delivery (file://)
+  - Multiple theme options
+  - Code highlighting
+  - Plugin architecture
+  - Accessibility checklist
+
+technologies:
+  - HTML/CSS/JavaScript
+  - Reveal.js 6.0.2
+  - Markdown
+  - Speaker view
+  - PDF export
+
+difficulty: intermediate
+estimatedTime: 30-60 minutes per deck
+
+source: https://revealjs.com/
+documentationLinks:
+  - title: Reveal.js Docs
+    url: https://revealjs.com/
+  - title: Fragments
+    url: https://revealjs.com/fragments/
+  - title: Auto-Animate
+    url: https://revealjs.com/auto-animate/
+  - title: Speaker View
+    url: https://revealjs.com/speaker-view/
+  - title: PDF Export
+    url: https://revealjs.com/pdf-export/
