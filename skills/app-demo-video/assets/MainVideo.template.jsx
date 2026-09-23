@@ -45,6 +45,7 @@ export const SCENES = [
       img: "feature_card.png", // cropped screenshot in public/
       imgWidth: 1200,
       badge: null,             // e.g. "+10%" to spotlight a number
+      caption: "Optional burned-in subtitle — for silent/social viewing.",
       footer: FOOTER,
     },
   },

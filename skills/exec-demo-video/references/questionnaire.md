@@ -34,6 +34,11 @@ the bottom and `app-demo-video/references/animation-and-sound.md`.
 12. **On-screen emphasis (optional)** — any exact figure/label the narration will
     call out that should be spotlighted or badged (e.g. a "+10%" corner badge on
     the relevant screenshot).
+13. **Burned-in captions/subtitles (optional)** — does the user want on-screen
+    captions (for silent/social viewing or accessibility)? If yes, **ask the
+    caption language** — it is independent of the voice, so you can narrate in
+    French and caption in English (or vice versa) for international social feeds.
+    Captions render as one short line per scene via the `caption` prop.
 
 Recommended defaults when the user is unsure: **standard exec profile** ≈ 6–7
 scenes / 45–55s, dynamic corporate tone, moderate animation, ducked corporate
@@ -54,3 +59,4 @@ and code references in `app-demo-video/references/animation-and-sound.md`.
 | Music = provided/mood | keep the ducked envelope; match `BGM_BASE`/`BGM_FLARE` to intensity |
 | Wow element named | give it its own scene, more screen time, and a spotlight/badge |
 | Real compute step | stage it with `LoadingBar` synced to narration, not a cut to the result |
+| Captions = yes | pass a short `caption` per scene; caption language may differ from the voice |

@@ -49,3 +49,16 @@ hand-tuning at the end.
 `ContentScene` accepts a `badge` prop — a small corner pill (e.g. `"+10%"`) on the
 screenshot card to spotlight a figure the narration calls out. Use sparingly: one
 badge per video usually lands harder than one per scene.
+
+## Burned-in captions (Q13 accessibility / silent viewing / i18n)
+All three scenes (`HookScene`, `ContentScene`, `OutroScene`) accept a **`caption`**
+prop — one short line per scene rendered as a translucent band above the footer.
+It fades in with the scene and does not collide with the screenshot card or footer.
+- **Keep it short** — the spoken line or a trimmed version (scenes already map to
+  one narration beat). Long captions wrap and crowd the frame.
+- **Language is independent of the voice** — narrate in French and caption in
+  English (or vice versa) for international/social feeds. Reuse the narration text
+  for same-language captions, or supply separate caption text per scene.
+- Omit the prop (or pass empty) to render no captions.
+- Style knobs are in `CaptionBand` inside `assets/scene-components.jsx`
+  (position `bottom: 74`, font size 26, translucent `rgba(6,10,26,0.72)` band).

@@ -55,6 +55,9 @@ project-agnostic — discover the app's real content instead of inventing it.
   music track (or wants none), and how energetic the motion should be (subtle /
   moderate / dynamic). Map both to concrete knobs via
   `references/animation-and-sound.md`. Never ship copyrighted audio.
+- **Burned-in captions (optional)**: ask if on-screen captions are wanted and, if
+  so, in which language (independent of the voice). Each scene takes a `caption`
+  prop; see `references/animation-and-sound.md`.
 - Any concrete "why this exists" business context — use it verbatim in the intro.
 
 ## 1. Explore & screenshot the app

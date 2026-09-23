@@ -61,6 +61,9 @@ and offer short samples first.
   language's UI).
 - Add "processing" elements (progress bars, spinners) synced with narration when
   the product has real compute time to stage, instead of cutting to the result.
+- If the user wants captions (Q13), pass a short `caption` per scene in the chosen
+  caption language (may differ from the voice) — see
+  `app-demo-video/references/animation-and-sound.md`.
 
 ## Step 4 — Music & sound
 Set the music from the brief (Q10): if the user provides a track, place it at

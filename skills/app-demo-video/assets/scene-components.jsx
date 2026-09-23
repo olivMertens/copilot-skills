@@ -54,6 +54,23 @@ function Footer({ text }) {
   );
 }
 
+// Optional burned-in caption/subtitle band for silent-viewing / social / i18n.
+// One line per scene (scenes already map to one narration beat). Keep the text
+// short — the spoken line or a trimmed version. Its language is independent of
+// the voice, so you can caption a French-narrated video in English, etc.
+function CaptionBand({ text }) {
+  const frame = useCurrentFrame();
+  if (!text) return null;
+  const opacity = interpolate(frame, [6, 16], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <div style={{ position: "absolute", bottom: 74, left: 0, right: 0, display: "flex", justifyContent: "center", opacity, padding: "0 140px" }}>
+      <div style={{ background: "rgba(6,10,26,0.72)", color: "white", fontFamily: "Segoe UI, sans-serif", fontWeight: 600, fontSize: 26, lineHeight: 1.3, textAlign: "center", padding: "12px 26px", borderRadius: 12, maxWidth: 1500 }}>
+        {text}
+      </div>
+    </div>
+  );
+}
+
 // Screenshot card: rounded, drop-shadowed, subtle Ken Burns that begins when the
 // card fades in. `badge` optionally overlays a small accent pill (e.g. "+10%").
 // Pass the SCENE's own duration via `dur` for a correct zoom span.
@@ -77,7 +94,7 @@ function ShotCard({ img, width, delay, badge, dur }) {
 }
 
 // Content scene: kicker + headline + subtitle + pills + screenshot card.
-export const ContentScene = ({ kicker, headline, subtitle, pills, img, imgWidth = 1180, badge, footer, dur }) => {
+export const ContentScene = ({ kicker, headline, subtitle, pills, img, imgWidth = 1180, badge, footer, caption, dur }) => {
   const { fps } = useVideoConfig();
   const k = useCinematicIn(0, fps);
   const h = useCinematicIn(6, fps);
@@ -93,13 +110,14 @@ export const ContentScene = ({ kicker, headline, subtitle, pills, img, imgWidth 
         <Pills items={pills} style={p} />
         {img ? <ShotCard img={img} width={imgWidth} delay={24} badge={badge} dur={dur} /> : null}
       </AbsoluteFill>
+      <CaptionBand text={caption} />
       <Footer text={footer} />
     </AbsoluteFill>
   );
 };
 
 // Hook scene: optional brand logo top-left, kicker, large title, tagline, pills.
-export const HookScene = ({ kicker, title, tagline, pills, footer, logo = true }) => {
+export const HookScene = ({ kicker, title, tagline, pills, footer, caption, logo = true }) => {
   const { fps } = useVideoConfig();
   const lg = useCinematicIn(0, fps);
   const k = useCinematicIn(6, fps);
@@ -120,13 +138,14 @@ export const HookScene = ({ kicker, title, tagline, pills, footer, logo = true }
         <div style={{ ...tg, fontFamily: "Segoe UI, sans-serif", fontWeight: 600, fontSize: 32, color: "#c8d6e6", marginTop: 20, textAlign: "center", maxWidth: 1200 }}>{tagline}</div>
         <Pills items={pills} style={p} />
       </AbsoluteFill>
+      <CaptionBand text={caption} />
       <Footer text={footer} />
     </AbsoluteFill>
   );
 };
 
 // Outro scene: centered brand logo, kicker, title, tagline, pills.
-export const OutroScene = ({ kicker, title, tagline, pills, footer, logo = true }) => {
+export const OutroScene = ({ kicker, title, tagline, pills, footer, caption, logo = true }) => {
   const { fps } = useVideoConfig();
   const lg = useCinematicIn(0, fps);
   const k = useCinematicIn(6, fps);
@@ -147,6 +166,7 @@ export const OutroScene = ({ kicker, title, tagline, pills, footer, logo = true 
         <div style={{ ...tg, fontFamily: "Segoe UI, sans-serif", fontWeight: 600, fontSize: 30, color: "#c8d6e6", marginTop: 18, textAlign: "center", maxWidth: 1180 }}>{tagline}</div>
         <Pills items={pills} style={p} />
       </AbsoluteFill>
+      <CaptionBand text={caption} />
       <Footer text={footer} />
     </AbsoluteFill>
   );
