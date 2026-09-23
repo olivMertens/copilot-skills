@@ -40,6 +40,7 @@ project-agnostic — discover the app's real content instead of inventing it.
   narration generator (one multilingual voice can speak several languages).
 - `references/visual-language.md` — the house style spec.
 - `references/screenshot-capture.md` — capture + crop workflow and gotchas.
+- `references/animation-and-sound.md` — tunable motion/audio knobs + tone presets.
 
 ## 0. Gather the brief (ask only what's missing)
 - **App URL** (+ login credentials if gated — ask, don't guess).
@@ -50,6 +51,10 @@ project-agnostic — discover the app's real content instead of inventing it.
 - **Language + voice** (see the `exec-demo-video` skill's voice catalog; a single
   multilingual voice can cover a FR+EN pair via SSML `<lang>`).
 - **Reference video** (optional): fetch and study its cut rhythm before building.
+- **Background music & animation intensity**: ask whether the user provides a
+  music track (or wants none), and how energetic the motion should be (subtle /
+  moderate / dynamic). Map both to concrete knobs via
+  `references/animation-and-sound.md`. Never ship copyrighted audio.
 - Any concrete "why this exists" business context — use it verbatim in the intro.
 
 ## 1. Explore & screenshot the app
@@ -101,6 +106,8 @@ Adapt `assets/MainVideo.template.jsx`: one `Series.Sequence` per scene, each wit
 `offset={i===0?0:-TRANSITION_OVERLAP}`, `<TransitionWrapper>`, and a sibling
 `<Audio>`. **Scene duration = `ceil(clipSeconds*fps) + ~20`** (the ~20-frame tail
 avoids cutting off the last word). `TOTAL_DURATION = Σ duration − (n−1)·overlap`.
+Set the music/motion knobs (`BGM_BASE`/`BGM_FLARE`, Ken-Burns strength, spotlight/
+count-up/processing bars) from the brief per `references/animation-and-sound.md`.
 
 ## 6. Scene-by-scene review (don't batch)
 Build one scene → register it → render a still

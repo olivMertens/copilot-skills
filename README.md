@@ -98,7 +98,7 @@ skills/
     SKILL.md
     assets/        # Remotion scene components + turnkey project skeleton (Root/index/package.json)
     scripts/       # generate_tts.py (+ clips.example.json)
-    references/    # visual-language.md, screenshot-capture.md
+    references/    # visual-language.md, screenshot-capture.md, animation-and-sound.md
   architecture-diagram-author/
     SKILL.md
   build-presentation/

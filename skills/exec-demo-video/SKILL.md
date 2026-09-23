@@ -27,10 +27,14 @@ those bundled assets.
 
 ## Step 1 — Questionnaire (ALWAYS ask before generating anything)
 Work through `references/questionnaire.md` (voice/language, audience, tone,
-duration, demo link, repo, optional persona, priority "wow" element). Never
-assume language/voice defaults — ask first. Recommend the **standard exec
-profile** (6–7 scenes / 45–55s, dynamic corporate) when the user is unsure.
-Pick a voice from `references/voice-catalog.md` and offer short samples first.
+duration, demo link, repo, optional persona, priority "wow" element, **background
+music**, **animation/zoom intensity**, on-screen emphasis). Never assume
+language/voice defaults — ask first. Each answer maps to a concrete
+Remotion/audio setting via the preset table there and
+`app-demo-video/references/animation-and-sound.md`. Recommend the **standard exec
+profile** (6–7 scenes / 45–55s, dynamic corporate, moderate animation, ducked
+music) when the user is unsure. Pick a voice from `references/voice-catalog.md`
+and offer short samples first.
 
 ## Step 2 — Script
 - One scene = one new idea. Never repeat the same information on screen and in
@@ -48,6 +52,10 @@ Pick a voice from `references/voice-catalog.md` and offer short samples first.
 - Zooms: `transform-origin` centered on the point of interest (never a pan that
   pushes content out of frame). Fast ramp to a moderate zoom, then a slow drift
   for a "living video" feel. Vary the animation pattern between scenes.
+- Set zoom strength, entrance snappiness, count-ups (`useCountUp`), highlight
+  rings (`SpotlightRing`) and processing bars (`LoadingBar`) from the intensity
+  answer (Q11) using the presets in
+  `app-demo-video/references/animation-and-sound.md`.
 - If real screen-recordings exist in a different language than the narration,
   flag it and let the user choose (translated stills vs. real video in the other
   language's UI).
@@ -55,9 +63,12 @@ Pick a voice from `references/voice-catalog.md` and offer short samples first.
   the product has real compute time to stage, instead of cutting to the result.
 
 ## Step 4 — Music & sound
-Keep background music quiet (base ~0.05–0.06, small flares at scene transitions)
-so it never covers the voice. The bundled `MainVideo.template.jsx` already
-implements this ducked envelope.
+Set the music from the brief (Q10): if the user provides a track, place it at
+`public/bgm.mp3`; if none, remove the BGM `<Audio>` from the assembly. Keep music
+ducked (base ~0.05, flares matched to the intensity answer) so it never covers
+the voice. The bundled `MainVideo.template.jsx` implements this envelope; tune
+`BGM_BASE`/`BGM_FLARE` per `app-demo-video/references/animation-and-sound.md`.
+Never ship copyrighted audio.
 
 ## Step 5 — Iterative validation
 - Render stills (`npx remotion still`) at key frames BEFORE the full render, for
