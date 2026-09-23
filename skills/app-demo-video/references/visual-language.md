@@ -51,6 +51,13 @@ One constant line across every scene, translated per language (e.g.
 (Azure AI Foundry, Azure OpenAI, Azure AI Content Understanding, Azure Speech)
 in kickers/subtitles/pills where relevant — concrete tech names build credibility.
 
+## Reusing broll across language variants
+`assets/shared.jsx` ships `CroppedVideo` for real screen-recording broll (crop a
+fixed rect out of footage without ffmpeg math). If broll exists for one language
+but not another, do **not** fake a re-recording — substitute the equivalent
+static screenshot (`Img`), cropped/sized the same way, and note the substitution
+in the deliverable summary.
+
 ## Standing content rules
 - Never use "LIVE ·" / "live capture" wording, nor "NEW ·" / "NOUVEAU ·" kicker
   prefixes. Describe capabilities plainly ("Real application" / "Application réelle").

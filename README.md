@@ -96,7 +96,7 @@ Use for exec/leadership demo videos and short product teasers.
 skills/
   app-demo-video/
     SKILL.md
-    assets/        # Remotion scene components, transition wrapper, assembly template
+    assets/        # Remotion scene components + turnkey project skeleton (Root/index/package.json)
     scripts/       # generate_tts.py (+ clips.example.json)
     references/    # visual-language.md, screenshot-capture.md
   architecture-diagram-author/

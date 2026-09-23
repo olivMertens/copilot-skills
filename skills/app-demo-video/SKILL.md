@@ -33,6 +33,9 @@ project-agnostic — discover the app's real content instead of inventing it.
 - `assets/TransitionWrapper.jsx` — crossfade + zoom + blur wrapper.
 - `assets/MainVideo.template.jsx` — assembly template (Series + per-scene audio
   + ducked background-music envelope + `TOTAL_DURATION`).
+- `assets/Root.jsx`, `assets/index.jsx`, `assets/package.json`,
+  `assets/README.md` — turnkey Remotion project skeleton (copy in, `npm install`,
+  render). `Root.jsx` auto-registers every scene + the assembly.
 - `scripts/generate_tts.py` + `scripts/clips.example.json` — Azure Speech
   narration generator (one multilingual voice can speak several languages).
 - `references/visual-language.md` — the house style spec.
@@ -83,11 +86,14 @@ cropped cards in the Remotion `public/` folder.
    is an error body; the script surfaces it.
 
 ## 4. Build the Remotion scenes
-- Copy `assets/*.jsx` into `src/`. Feed copy to `HookScene`/`ContentScene`/
-  `OutroScene` via props — do **not** duplicate a component per language.
+- New project? Follow `assets/README.md` to stand up the turnkey skeleton (copy
+  the `assets/` files into `src/`, rename `MainVideo.template.jsx` → `MainVideo.jsx`,
+  `npm install`). `Root.jsx`/`index.jsx`/`package.json` are provided.
+- Feed copy to `HookScene`/`ContentScene`/`OutroScene` via props — do **not**
+  duplicate a component per language.
 - Follow the layout, palette, entrance, `marginTop:28`, footer and Ken-Burns
   conventions in `references/visual-language.md`.
-- Register every scene AND the assembly as its own `<Composition>` in `Root.jsx`
+- `Root.jsx` already registers every scene AND the assembly as `<Composition>`s
   (individual scenes for still review; the assembly is the deliverable).
 
 ## 5. Wire transitions & audio

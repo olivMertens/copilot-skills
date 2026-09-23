@@ -11,7 +11,9 @@ automation (Playwright or equivalent), then crop tight.
    Every crop-rect number below assumes a fixed source resolution — mixing
    resolutions breaks every downstream crop.
 3. **Tour every screen/tab** systematically. Capture full-page PNGs with
-   descriptive names (e.g. `en_transcript.png`, `fr_decision.png`).
+   descriptive names (e.g. `en_transcript.png`, `fr_decision.png`). If the app's
+   UI has changed a lot since a prior pass, do a full fresh re-tour — never reuse
+   stale screenshots.
 4. Identify the single most business-relevant flow and the newest/most
    impressive features — these get priority screen time. Skip About/settings
    unless asked.
