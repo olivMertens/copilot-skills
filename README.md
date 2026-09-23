@@ -90,6 +90,20 @@ and reuses the `app-demo-video` pipeline and assets.
 
 Use for exec/leadership demo videos and short product teasers.
 
+### LinkedIn Post
+
+[`linkedin-post`](skills/linkedin-post/SKILL.md) drafts a punchy, ready-to-paste
+LinkedIn post around a video/demo/repo/launch, **in the author's own voice**.
+
+- Runs an intake (language EN or EN+FR, audience, complexity, main messages,
+  mandatory links, assets, CTA, hashtags, disclaimers) and researches the
+  author's tone (or asks for a sample when LinkedIn blocks fetching).
+- Applies reach best-practices (hook, white space, native video, muted captions,
+  link placement, length, hashtags) and outputs the copy + a media checklist
+  (poster/cover + FR & EN subtitle files).
+
+Use for "write a LinkedIn post", "LinkedIn caption for this video".
+
 ## Structure
 
 ```text
@@ -108,6 +122,9 @@ skills/
   exec-demo-video/
     SKILL.md
     references/    # questionnaire.md, voice-catalog.md
+  linkedin-post/
+    SKILL.md
+    references/    # questionnaire.md, linkedin-playbook.md, tone-and-voice.md
   reveal-slide-builder/
     SKILL.md
 ```
