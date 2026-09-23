@@ -63,13 +63,52 @@ explicit compatibility limits rather than assuming identical behavior.
 Use for engine migration, local container failures, build-context differences,
 cache optimization, or Azure remote-build compatibility.
 
+### App Demo & Marketing Video
+
+[`app-demo-video`](skills/app-demo-video/SKILL.md) turns a live web app into a
+narrated **demo** or **marketing** video with the **Remotion** (React) pipeline —
+from just a URL and a short brief.
+
+- Explores and screenshots the running app, writes why/how/value narration,
+  generates **Azure TTS** voice-over, and renders with `npx remotion render`.
+- Ships runnable assets: parameterized scene components, a transition wrapper, an
+  assembly template, and a project-agnostic Azure TTS script (`generate_tts.py`).
+- References cover the house visual language and the screenshot capture/crop
+  workflow. Discovers the app's real content instead of inventing it.
+
+Use for demo videos, product videos, marketing videos, or feature-tour videos.
+
+### Exec Demo Video
+
+[`exec-demo-video`](skills/exec-demo-video/SKILL.md) produces a short, punchy
+**executive** demo/marketing video (~30–60s). A thin exec-focused wrapper that
+runs an upfront questionnaire (voice/language, audience, tone, duration, persona)
+and reuses the `app-demo-video` pipeline and assets.
+
+- Bundles a questionnaire checklist and a multilingual Azure voice catalog
+  (one multilingual voice can cover a FR+EN pair via SSML `<lang>`).
+
+Use for exec/leadership demo videos and short product teasers.
+
 ## Structure
 
 ```text
 skills/
+  app-demo-video/
+    SKILL.md
+    assets/        # Remotion scene components, transition wrapper, assembly template
+    scripts/       # generate_tts.py (+ clips.example.json)
+    references/    # visual-language.md, screenshot-capture.md
   architecture-diagram-author/
     SKILL.md
+  build-presentation/
+    SKILL.md
   container-engine-compat/
+    SKILL.md
+  exec-demo-video/
+    SKILL.md
+    references/    # questionnaire.md, voice-catalog.md
+  reveal-slide-builder/
     SKILL.md
 ```
 
