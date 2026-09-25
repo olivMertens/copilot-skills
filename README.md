@@ -1,6 +1,6 @@
 # copilot-skills
 
-Reusable, project-agnostic domain skills for **GitHub Copilot in VS Code**.
+Reusable, project-agnostic domain skills for **GitHub Copilot in VS Code and CLI**.
 Each skill contains YAML frontmatter with discovery triggers, followed by
 instructions and an exit checklist. All skills are written in English.
 
@@ -78,6 +78,32 @@ from just a URL and a short brief.
 
 Use for demo videos, product videos, marketing videos, or feature-tour videos.
 
+### HyperFrames Video
+
+[`hyperframes-video`](skills/hyperframes-video/SKILL.md) creates editable
+**HTML/CSS/GSAP videos with HyperFrames**, independently of the Remotion pipeline.
+
+- Plans narrative beats separately from measured musical beats, including audio
+  trim offsets and frame-aligned UI reveals.
+- Combines real app captures with readable UI highlights, diagrams, code, charts,
+  device frames and purposeful transitions.
+- Covers narration, licensed music, ducking, captions, multilingual versions and
+  separately composed landscape/vertical layouts.
+- Includes a reusable brief, CLI/composition reference, visual direction and
+  evaluation scenarios. Requires actual render and visual/audio review before
+  claiming a finished video; remote processing and publication need authorization.
+
+Copy the entire directory into `.github/skills/hyperframes-video/` in the target
+project. It supplies agent instructions, not the HyperFrames runtime; follow its
+preflight to discover or install the required tools under your environment policy.
+
+Example: "Use hyperframes-video to create a 45-second French product demo from my
+approved UI captures and licensed music. Synchronize major reveals to the beats,
+show the workflow as a diagram, and review the storyboard before rendering."
+
+Use for HyperFrames demos, beat-synced product videos, HTML motion graphics, or an
+explicit Remotion-to-HyperFrames migration. Existing Remotion skills are unchanged.
+
 ### Exec Demo Video
 
 [`exec-demo-video`](skills/exec-demo-video/SKILL.md) produces a short, punchy
@@ -122,6 +148,11 @@ skills/
   exec-demo-video/
     SKILL.md
     references/    # questionnaire.md, voice-catalog.md
+  hyperframes-video/
+    SKILL.md
+    assets/        # brief.example.json (planning only, not runtime config)
+    references/    # CLI/composition and storyboard/visual direction
+    evals/         # workflow and trigger regression scenarios
   linkedin-post/
     SKILL.md
     references/    # questionnaire.md, linkedin-playbook.md, tone-and-voice.md
