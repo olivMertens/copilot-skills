@@ -27,9 +27,12 @@
       "enabled": null,
       "language": null,
       "voice": null,
+      "voices": [],
       "provider": null
     },
     "music": {
+      "_modeOptions": ["supplied", "generated", "reuseNamedPriorTrack", "none"],
+      "allowReuseWithoutAsking": false,
       "mode": null,
       "file": null,
       "licenseEvidence": null,
@@ -40,6 +43,7 @@
       "cues": []
     },
     "captions": {
+      "_deliveryOptions": ["burn-in", "sidecar", "both", "none"],
       "enabled": null,
       "language": null,
       "burnIn": null,

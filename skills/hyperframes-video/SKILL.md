@@ -40,9 +40,18 @@ affect the result, grouped into a short intake:
 - Objective, audience, distribution channel, and the action the viewer should take.
 - Source: live app URL, source repo, existing footage, screenshots or explanation.
 - Duration, aspect ratio(s), frame rate and required output format.
-- Language, voice/provider, narration or no narration, and caption language.
-- Music: supplied licensed track, authorized generation, or no music; desired
-  energy and motion intensity. "No narration" does not mean "no audio".
+- Narration and voice: narration or no narration; and for each spoken language
+  which exact voice(s)/provider to implement. Ask every time; never reuse a prior
+  default voice without confirmation. Multiple voices (per language or speaker)
+  are allowed.
+- Captions: whether to show captions, in which language(s), and whether to BURN
+  THEM IN (hardcoded into the picture) or deliver a separate sidecar file, or both.
+  Ask explicitly; do not assume a default.
+- Music: always ask which background track to use this time - a supplied licensed
+  file, an authorized generation, reuse of a specific named prior track, or no
+  music - plus desired energy and motion intensity. Never silently reuse the same
+  or a built-in default track; offer to choose or change it on every project.
+  "No narration" does not mean "no audio".
 - Brand reference, exact copy, mandatory visuals and elements not to show.
 - Whether to approve a storyboard and representative frames before full render.
 
@@ -119,10 +128,14 @@ as a title. Reserve readable holds and caption space.
 Generate or import authorized narration and measure actual clip durations.
 Do not budget a final cut using word-count estimates alone. Reuse the user's
 configured provider when suitable; HyperFrames does not imply mandatory HeyGen
-voices. Obtain permission before sending text or media to a remote provider.
+voices. Implement the specific voice(s) chosen in the intake, applying the right
+voice per language or speaker; do not swap to a different default voice. Obtain
+permission before sending text or media to a remote provider.
 
-For music, follow the analysis path in the CLI reference. Read the produced
-analysis schema; do not infer beats solely from BPM. Listen around the proposed
+For music, first confirm the specific background track for this project with the
+user; never default to a previously used or bundled track, and offer to choose or
+change it on request. Then follow the analysis path in the CLI reference. Read the
+produced analysis schema; do not infer beats solely from BPM. Listen around the proposed
 edit, including any pickup, silence, tempo change or trimmed source offset.
 Use structural sections/downbeats for major changes, ordinary beats for smaller
 reveals. Avoid flashing or cutting on every beat.
@@ -205,5 +218,7 @@ Do not publish, upload, share or push artifacts without explicit authorization.
 - Real UI readable; illustrative material labeled; no private data exposed.
 - Motion deterministic; timeline and media durations coherent across variants.
 - Voice intelligible, captions accurate, music licensed, ending intact.
+- Music track, voice(s) and caption burn-in/sidecar chosen or confirmed this run,
+  not silently reused from a default or prior project.
 - Checks and visual/audio review complete, or blockers stated plainly.
 - Actual video and editable sources delivered; no unauthorized remote publication.
