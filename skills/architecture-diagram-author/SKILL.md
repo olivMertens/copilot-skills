@@ -68,18 +68,28 @@ Do not hide a dependency merely to pass the layout check.
 Generated SVG paths must preserve the source routing using orthogonal `M`/`L` segments,
 arrow markers, and movable groups such as `<g transform="translate()">`.
 
-## Microsoft icons: approved sources and selection
-**Search across the approved sources to find the correct product or service icon;
-do not restrict discovery or downloads to a single pack.** Multiple sources may be
-used in one diagram. Prefer current Microsoft-published assets when available;
-the approved community catalogs below are also valid discovery and download sources,
-not Microsoft publishers. Verify the identity and provenance of each selected asset.
+## Microsoft icons: priority source and fallback
+**For each component, follow this search order:**
+
+1. **Priority source — [az-icons.com](https://az-icons.com/).** Search the Microsoft
+   icon matching the service and use its SVG. Verify the real download link the site
+   provides; never invent an icon path. az-icons.com is a community catalog (not a
+   Microsoft publisher) mirroring the Azure architecture pack, so confirm the exact
+   service and current branding for the asset you select.
+2. **Fallback — this skill's bundled references below**, drawn from
+   [MsiconsCollections](https://aka.ms/MsiconsCollections) (Azure / Fabric / Entra /
+   Microsoft 365 / Power Platform), when the priority source lacks a suitable icon or
+   is unreachable. Resolve and verify the real asset path before use.
+
+The other approved catalogs below remain valid for verification and for products not
+covered by the two sources above. Verify the identity and provenance of each selected
+asset; multiple sources may appear in one diagram.
 
 | Source | Use and provenance |
 | --- | --- |
-| [MsiconsCollections](https://aka.ms/MsiconsCollections) | Broad collection; resolve the link and verify the selected pack and asset. |
-| [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/icons/) | Microsoft-published Azure SVG pack, update history, and usage terms; preferred reference for Azure service icons. |
-| [az-icons.com](https://az-icons.com/) | Community catalog offering Azure SVG/PNG assets sourced from the Azure architecture pack; verify the stated pack version and exact service. |
+| [az-icons.com](https://az-icons.com/) | **Priority source.** Community catalog of Azure SVG/PNG assets sourced from the Azure architecture pack; search by service, use the real download link it exposes, and verify the exact service and current branding. |
+| [MsiconsCollections](https://aka.ms/MsiconsCollections) | **Fallback.** Broad collection behind this skill's bundled path references (Azure / Fabric / Entra / Microsoft 365 / Power Platform); resolve the link and verify the selected pack and asset. |
+| [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/icons/) | Microsoft-published Azure SVG pack, update history, and usage terms; authoritative reference to confirm Azure service icons. |
 | [Power Platform icons](https://learn.microsoft.com/en-us/power-platform/guidance/icons) | Microsoft-published Power Platform SVG pack, update history, and usage terms; preferred reference for these products. |
 | [DamoBird365/microsoft-cloud-icons](https://github.com/DamoBird365/microsoft-cloud-icons/tree/master) | Community-curated Microsoft Cloud product SVG/PNG collection; use its `icons.json` index and verify the asset, revision, and trademark notice. |
 
@@ -93,9 +103,11 @@ Plain labeled rectangles and connectors are diagram primitives, not substitute i
   `https://tomkiljo.github.io/ms-icons/icons/`; verify that it still belongs to the
    linked collection before using it. Official archives and raw asset URLs linked by
    the approved sources are valid download endpoints.
-- Search by exact product/service name and current or former names. If the first pack
-   lacks the correct icon, consult the other relevant approved sources before declaring
-   it missing. Prefer semantic accuracy and current branding over matching a pack's style.
+- Search by exact product/service name and current or former names. Start at the
+   priority source (az-icons.com); if it lacks the correct icon or is unreachable,
+   use this skill's bundled MsiconsCollections references, then the other relevant
+   approved sources before declaring it missing. Prefer semantic accuracy and current
+   branding over matching a pack's style.
    Resolve conflicting variants against the current Microsoft product guidance.
 - Record the source page, asset path, resolved download URL, and pack version or commit
    (where available). Record the retrieval date when no version is exposed. For community
@@ -113,9 +125,10 @@ Plain labeled rectangles and connectors are diagram primitives, not substitute i
   logo as a dedicated Microsoft 365, Teams, or Graph product logo. Building glyphs such
   as `office01..14` are not Office product logos.
 
-### MsiconsCollections path reference (non-exhaustive)
-These inherited paths are lookup candidates, not a claim of current availability or
-an instruction to add these services. They do not limit discovery to this collection.
+### Fallback reference: MsiconsCollections paths (non-exhaustive)
+These bundled paths are the fallback lookup candidates when az-icons.com lacks the
+icon or is unreachable; they are not a claim of current availability or an instruction
+to add these services, and they do not limit discovery to this collection.
 Verify each selected path before use and check newer packs for renamed products.
 
 ```text
@@ -240,8 +253,9 @@ respect repository commit rules and publish only when authorized.
 Mark conditional items not applicable with a reason rather than inventing components.
 
 - [ ] Paths, labels, stable IDs, dependencies, and boundaries reflect the current project.
-- [ ] Icons come from the approved sources above or their linked download endpoints;
-   discovery was not limited to the inherited MsiconsCollections path list.
+- [ ] Icons were sought at the priority source (az-icons.com) first, then the bundled
+   MsiconsCollections fallback and other approved sources; discovery was not limited to
+   the inherited MsiconsCollections path list.
 - [ ] Each icon's product identity, current variant, provenance, source/download URLs,
    version or retrieval date, and usage terms are checked; community catalogs are not mislabeled as Microsoft publishers.
 - [ ] Missing matches were sought in other relevant approved sources before using
