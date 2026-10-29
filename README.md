@@ -130,6 +130,23 @@ LinkedIn post around a video/demo/repo/launch, **in the author's own voice**.
 
 Use for "write a LinkedIn post", "LinkedIn caption for this video".
 
+### Reveal.js Slide Builder
+
+[`reveal-slide-builder`](skills/reveal-slide-builder/SKILL.md) designs and builds audience-focused
+**reveal.js** decks. It covers the narrative arc, animations, fragments, auto-animate, plugins, layouts,
+accessibility, offline delivery and PDF export.
+
+- **Guided diagram walkthrough:** explains an architecture or Mermaid flow diagram part by part.
+  - Each key press zooms on the components named by the step, dims the rest and animates the active connectors.
+  - Failures are shown in red, and evidence screenshots can appear beside the diagram.
+  - The last step is a recap of the whole picture.
+- **Step-by-step facilitation:** the speaker view shows a script for each step (timing, what to point at,
+  what to say, a question for the room, the bridge to the next step).
+- Ships a tested, dependency-free script, styles and an example deck. Respects reduced motion and exports to PDF.
+
+Use for "build a reveal.js deck", "walk the room through this architecture step by step",
+"facilitation per step".
+
 ## Structure
 
 ```text
@@ -158,6 +175,8 @@ skills/
     references/    # questionnaire.md, linkedin-playbook.md, tone-and-voice.md
   reveal-slide-builder/
     SKILL.md
+    assets/        # diagram-walkthrough.js/.css + working example deck
+    references/    # diagram-walkthrough.md (step-by-step diagrams and facilitation)
 ```
 
 ## Contributing

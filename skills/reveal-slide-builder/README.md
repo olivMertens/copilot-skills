@@ -22,6 +22,7 @@ This skill helps you design and build reveal.js presentations by asking targeted
 ✅ Plan slide layouts and reveal sequencing  
 ✅ Build accessible, audience-focused presentations  
 ✅ Choose brand-agnostic colors and typography  
+✅ Walk an audience through an architecture or flow diagram, step by step, with a facilitator script  
 
 ## Quick Start
 
@@ -32,8 +33,25 @@ Invoke the skill when you need to:
 - "Design animated slides for a design conference"
 - "What animations work best for my audience?"
 - "Which reveal.js plugins should I use?"
+- "Walk the room through this architecture diagram step by step, with facilitator notes"
 
 ## Key Features
+
+### Guided Diagram Walkthrough (step-by-step facilitation)
+
+The whole diagram first, then one step per key press:
+
+- the view zooms on the components named by the step, and dims the rest;
+- dashes move along the active connectors;
+- failed components turn red with a label;
+- an optional evidence screenshot appears beside the diagram;
+- the last step is a recap of the whole picture.
+
+The speaker view shows the facilitator notes of the current step. The walkthrough works with an inline SVG that
+follows a simple id contract, or with a pre-rendered Mermaid flowchart. It respects reduced motion and exports to
+PDF as the full diagram plus the numbered list of steps. Tested with reveal.js 6.0.2 and Mermaid 12.2.
+
+See [`references/diagram-walkthrough.md`](references/diagram-walkthrough.md) and the working example in `assets/`.
 
 ### 6-Phase Workflow
 
@@ -47,7 +65,7 @@ Invoke the skill when you need to:
 ### Animation Patterns by Audience
 
 - **Executive**: Fade, Slide (directional), Scale (emphasis on metrics)
-- **Technical**: Fade, Code line-by-line (data-line), Diagram traces
+- **Technical**: Fade, Code line-by-line (data-line), guided diagram walkthrough (zoom, dim, moving flows)
 - **Creative**: SVG animation, smooth transitions, custom CSS
 - **End-user**: Gentle fades, progressive reveals, whitespace emphasis
 
@@ -84,6 +102,9 @@ Quick reference for choosing animations and plugins based on audience and use ca
 ## Files Included
 
 - **SKILL.md** — Full skill documentation with all workflows, recommendations, and examples
+- **references/diagram-walkthrough.md** — Step-by-step diagram walkthrough: intake, markup, id contract, Mermaid recipe, facilitation template, QA
+- **assets/diagram-walkthrough.js / .css** — Drop-in script and styles (no plugin dependency)
+- **assets/diagram-walkthrough-example.html** — Working 7-step example with a failure step, a recap and per-step facilitator notes
 
 ## Resources
 

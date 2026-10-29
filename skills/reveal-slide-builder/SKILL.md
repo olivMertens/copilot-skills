@@ -2,8 +2,12 @@
 name: reveal-slide-builder
 title: "Reveal.js Slide Builder — Mastermind Edition"
 description: |
-  Create world-class, audience-focused presentations with reveal.js through expert guidance on 
+  Create world-class, audience-focused presentations with reveal.js through expert guidance on
   animations, transitions, fragments, auto-animate, layouts, accessibility, offline delivery, and PDF export.
+  Includes a tested guided diagram walkthrough: an inline architecture SVG or Mermaid flowchart explained
+  step by step (zoom on the named components, dim the rest, moving flows on active connectors, failure
+  states, evidence cards), with a facilitator script per step in speaker view. Use for "walk through this
+  architecture step by step", "animate my diagram part by part", "facilitation per step", "schéma pas à pas".
 category: presentation
 tags:
   - reveal.js
@@ -35,6 +39,15 @@ triggers:
   - "code walkthroughs"
   - "diagram animations"
   - "reveal.js plugins"
+  - "step-by-step architecture walkthrough"
+  - "walk through a diagram"
+  - "animate an architecture diagram part by part"
+  - "guided diagram tour"
+  - "facilitation per step"
+  - "facilitator script"
+  - "schéma pas à pas"
+  - "animer un schéma d'architecture"
+  - "facilitation par étape"
 useCases:
   - Design a new presentation deck
   - Architect slide flow & interactivity
@@ -44,10 +57,12 @@ useCases:
   - Export for different formats
   - Plan reveal.js special features
   - Master advanced patterns
+  - Walk an audience through an architecture or flow diagram, step by step, with a facilitator script
 features:
   - Speaker view with notes and timer
   - Auto-animate for smooth transitions between elements
   - Fragments for progressive reveals
+  - Guided diagram walkthrough (zoom, dim, moving flows, failure states, per-step notes)
   - PDF export support
   - Offline delivery (file://)
   - Multiple theme options
@@ -58,6 +73,7 @@ technologies:
   - HTML/CSS/JavaScript
   - Reveal.js 6.0.2
   - Markdown
+  - Mermaid (pre-rendered SVG)
   - Speaker view
   - PDF export
 difficulty: intermediate
@@ -79,6 +95,7 @@ Use this skill whenever you need to:
 - **Export for different formats** — "prepare for PDF", "optimize for print", "create presenter notes", "multi-page export"
 - **Plan reveal.js special features** — "auto-animate elements", "custom fragments", "iframe backgrounds", "video backgrounds", "background transitions"
 - **Master advanced patterns** — "nested fragments", "staggered reveals", "code walkthroughs", "diagram animations", "speaker markup"
+- **Walk through a diagram, step by step** — "explain this architecture step by step", "animate the schema part by part", "facilitation per step", "schéma pas à pas" → [Guided Diagram Walkthrough](#guided-diagram-walkthrough--step-by-step-facilitation)
 
 ---
 
@@ -131,6 +148,12 @@ The skill follows a structured 5-phase workflow optimized for audience impact:
 - Take action Z (behavior)
 - Remember insight A (retention)
 - Feel confidence / emotion B (trust / motivation)
+
+### 6. **Diagrams & Step-by-Step Facilitation** (ask when a slide holds an architecture or flow diagram)
+- Will you **explain a diagram step by step** (architecture, request or data flow, process, failure scenario)? → plan a [Guided Diagram Walkthrough](#guided-diagram-walkthrough--step-by-step-facilitation)
+- Diagram source: drawio/SVG with stable ids, Mermaid, or an image only (needs a redraw as SVG)?
+- Which **single thread** do we follow (one request, order, claim, user)? Any failure path? Evidence screenshots per step?
+- **Facilitation:** live presenter or self-guided? A **facilitator script per step** (language, time budget, questions for the room)?
 
 **Action**: After answering these, state your audience & intent in 1–2 sentences so I can tailor everything that follows.
 
@@ -629,6 +652,64 @@ Built-in to reveal.js; Notes plugin displays in popup window.
 | Smartboard/touch | TouchControls | ✓ | Exclude from PDF export mode |
 | Speaker guidance | Notes | ✓ | Press S for popup speaker view |
 | Themes/appearance | Appearance | ✓ | Light/dark, serif/sans-serif toggles |
+| Step-by-step diagram walkthrough | `assets/diagram-walkthrough.js` (this skill) | ✓ | Inline SVG or Mermaid; per-step notes; see next section |
+
+---
+
+## Guided Diagram Walkthrough — Step-by-Step Facilitation
+
+**Use it** whenever a slide explains an architecture, request, data or process flow, or a failure scenario, and the
+user wants it presented part by part or asks for step-by-step facilitation. **Read
+[`references/diagram-walkthrough.md`](references/diagram-walkthrough.md) before building**: it has the intake,
+markup, id contract, Mermaid recipe, facilitation template and QA checklist. Start from the tested assets:
+`assets/diagram-walkthrough.js`, `assets/diagram-walkthrough.css` and `assets/diagram-walkthrough-example.html`
+(tested with reveal.js 6.0.2 and Mermaid 12.2).
+
+**What the audience sees.** The whole diagram first, with a hint to press →. Then, at each press:
+- one numbered sentence appears under the diagram;
+- the view **zooms** smoothly on the components that sentence names;
+- the rest **dims**, but the containers holding the focus stay as context;
+- dashes **move along the active connectors**;
+- failed components turn red with a label;
+- an optional evidence screenshot appears beside the diagram.
+
+The last step zooms back out for the recap. In speaker view, the presenter reads **the notes of the current step**.
+
+**How it works.** Each step is a reveal.js fragment (`.dw-step`, `fade-in-then-out`). Its `data-focus` lists diagram
+ids. The script listens to `fragmentshown` and `fragmenthidden`, then sets state classes on the inline SVG,
+animates its `viewBox` and overlays a dashed flow on the active connectors. It needs no plugin, and
+`DiagramWalkthrough.audit()` lists unknown ids.
+
+```html
+<section class="dw-slide" data-keep="c-platform">
+  <h2>Follow one request through the governed path</h2>
+  <div class="dw-stage"><svg class="dw-svg" data-diagram="demo" viewBox="…">…</svg></div>
+  <div class="dw-steps r-stack" aria-live="polite">
+    <p class="dw-intro">The whole picture first · press <kbd>→</kbd> to follow the flow</p>
+    <div class="fragment fade-in-then-out dw-step" data-focus="app gateway agent">
+      <span class="n">1</span>Every call goes through the API gateway before it reaches the agent.
+      <aside class="notes"><p><b>~40 s · Point at:</b> the gateway. <b>Say:</b> … <b>Ask the room:</b> … <b>Next:</b> …</p></aside>
+    </div>
+    <div class="fragment fade-in-then-out dw-step" data-focus="gateway agent" data-fail="model">…</div>
+    <div class="fragment fade-in dw-step" data-focus=""><span class="n">3</span>Recap: one door, one identity, one trace.</div>
+  </div>
+  <aside class="notes">Before step 1: name the zones, then the thread we follow.</aside>
+</section>
+```
+
+**Non-negotiables**
+- The SVG is **inline**: `<img>` cannot be driven. Ids follow the contract (`KEY-node`, `KEY-c-container`,
+  `KEY-e-connector` with `data-from`/`data-to`). For Mermaid, pre-render to SVG with `htmlLabels: false` and use
+  Mermaid's node and subgraph ids.
+- Steps are `<div>` elements when they hold `<aside class="notes">` (a `<p>` would be closed before the aside).
+- Follow **one thread**: one idea per step, about 20 words at most, 3 to 9 steps, 1 to 5 components each. Consecutive
+  steps share a component, so the zoom glides instead of jumping.
+- The last step has an empty focus and uses `fade-in`, for the recap.
+- **Facilitation:** when asked, write each step's `<aside class="notes">` as timing + point at + say (1 to 3 sentences)
+  + optional question for the room + bridge to the next step. Write slide notes for "before step 1", and set
+  `data-timing` on the section. Apply the user's own speaker-notes conventions if they have them.
+- Respect `prefers-reduced-motion` (handled by the assets). In `?print-pdf` the slide shows the whole diagram and
+  lists every step. Localise the hint line and the failure label (`data-fail-label`).
 
 ---
 
@@ -1688,6 +1769,10 @@ function processData(items) {
 ```
 START: What are you building?
 
+0. Does a slide explain an architecture, request/data flow or failure scenario?
+   → YES: Guided Diagram Walkthrough (inline SVG or Mermaid, one step per press, per-step facilitator notes)
+   → Also go to 1
+
 1. Is it a code-heavy talk?
    → YES: Use Highlight plugin, plan code walkthrough with auto-animate
    → NO: Go to 2
@@ -2184,6 +2269,8 @@ my-presentation/
 ├── assets/
 │   ├── deck-theme.css       # Custom styles
 │   ├── deck-behavior.js     # Boot + plugin config
+│   ├── diagram-walkthrough.css  # Step-by-step diagrams (from this skill's assets/)
+│   ├── diagram-walkthrough.js   # Load after Reveal.initialize()
 │   ├── fonts/               # Local fonts (Barlow, Source Sans Pro)
 │   ├── icons/               # SVG icons (Lucide or custom)
 │   ├── images/              # Presentation images
@@ -2212,6 +2299,7 @@ Before finalizing your deck, confirm:
 - [ ] **Accessibility**: Contrast ≥ 4.5:1, alt text for images, semantic HTML, keyboard navigation
 - [ ] **Pacing**: Slide count / speaker duration matches intended pace (e.g., 20 slides ÷ 20 min = 1 slide/min)
 - [ ] **Speaker notes**: Key talking points in `<aside class="notes">` for each slide
+- [ ] **Diagram walkthroughs** (if any): `DiagramWalkthrough.audit()` returns `[]`; every step frames what it names; stepping back restores the whole diagram; reduced motion, `?print-pdf` and per-step speaker notes checked (see `references/diagram-walkthrough.md`)
 - [ ] **Export readiness**: TouchControls excluded from `?export` mode (PDF export)
 - [ ] **Tested on target device**: Preview on projector, mobile, or intended viewing context
 
