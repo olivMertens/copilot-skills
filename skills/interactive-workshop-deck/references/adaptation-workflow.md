@@ -13,6 +13,9 @@
 - **Source material**: facts, figures and claims the user can stand behind. Without it, write
   generic, clearly illustrative content.
 
+Then ask the [customisation questionnaire](customization-questionnaire.md) (colours, animation,
+sound, links) in one grouped message.
+
 ## 2. Map the topic onto the arc
 
 | Phase | Pattern(s) | Question the slide answers |
@@ -25,7 +28,7 @@
 | Threshold | P11 | When do we intervene? |
 | Governance | P12 | Who decides, what is automated? |
 | Priority | P13 | Where do we start? |
-| Close | P14, P15 | What do we take away, what is the next step? |
+| Close | P14, P15, P18 | What do we take away, what is the next step, where do we read more? |
 | Annexes | P16, P17 | Before/after and how it fits the existing landscape. |
 
 Rules of thumb: one idea per slide, one question to the room per interactive slide, at least
@@ -78,6 +81,9 @@ Install tooling only in a scratch folder and only within the user's policy.
    (reset between runs) and screenshot the end state.
 4. Click through the interactive slides, then check `window.__deck.synth()` contains every section.
 5. Emulate `prefers-reduced-motion: reduce` and confirm every slide shows its final state.
+   Also load the chosen theme/motion/transition, and with sound enabled confirm tones play
+   after the first key press (e.g. count created oscillators) and that **M** toggles them.
+   Check every link card points to the approved URL and opens as configured.
 6. Search the file for leftover sample strings and unapproved brand or product names.
 
 Report what was checked, any slide not reviewed, and any browser not tested.

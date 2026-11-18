@@ -17,6 +17,9 @@ section never breaks the deck. Section order in the markup is the presentation o
 | `--grad-text`, `--grad-ui` | blue → violet → pink | `.grad` headline words, primary buttons |
 | `--font`, `--mono` | Inter / system stack, JetBrains Mono / system mono | text, numbers, code |
 
+- Theme presets in `CONFIG.theme.preset`: `midnight` (default), `ocean`, `ember`, `forest`,
+  `graphite`; any token can be overridden in `CONFIG.theme.tokens` (applied before rendering,
+  so SVG, canvas and particles follow). `--panel-solid` is the opaque card colour.
 - Re-skin by editing the `:root` tokens; most tints use `color-mix()` on them. SVG and canvas
   colours are read from the same tokens at start-up (`C.*` in the script). The particle network
   and a few literal glows keep fixed RGB values; adjust them if the palette changes radically.
@@ -40,6 +43,17 @@ section never breaks the deck. Section order in the markup is the presentation o
 
 All loops start in `enter[id]` and stop in `leave[id]`; reduced-motion users get the final state.
 
+`CONFIG.motion`: `level` `full` | `calm` (static particles, no looping CSS effects, slower morph)
+| `none` (final states only); `transition` `fade` | `slide` | `zoom`; `stagger` (ms between
+reveals); `autoCycleMs` (steps, the loop runs at 70 %); `simSecondsPerDay`.
+
+## Sound
+
+`CONFIG.sound` drives `SND.play(event)`: short Web Audio tones for `nav`, `reveal`, `poll`, `vote`,
+`alert`, `decision`. Off by default, **M** toggles it live, `volume` 0–1, and `files[event]` can
+point to an approved `data:` URI instead of a tone. Add `SND.play('…')` calls in new modules
+and a matching entry in the `KIT` table.
+
 ## Pattern catalogue
 
 | # | id | Pattern | Content source | Feeds synthesis |
@@ -61,6 +75,7 @@ All loops start in `enter[id]` and stop in `leave[id]`; reduced-motion users get
 | P15 | `s-next` | Six-step timeline, closing question, synthesis button | markup | opens it |
 | P16 | `s-compare` | Without/with toggle on an organisation graph, comparison table, race timeline | `CONTENT.compare` | – |
 | P17 | `s-arch` | Layered architecture with flow lenses that dim the rest and animate active edges | `CONTENT.arch` | – |
+| P18 | `s-links` | Link cards (kind, label, URL, why it matters), new tab optional | `CONTENT.links`, `CONFIG.links` | link list |
 
 ### P10 simulation anatomy
 
@@ -84,5 +99,5 @@ returns true.
 
 - `go(i)`, `enter[id]`, `leave[id]`, `PLAY[id]` (bound to **P**), `SYNTH.push(fn → markdown)`.
 - `S` is the persisted state; add new keys in `DEF()` and keep them JSON-serialisable.
-- Keys: ←/→/Space/PageUp/PageDown, Home/End, N notes, F fullscreen, T timer, P play, Esc.
+- Keys: ←/→/Space/PageUp/PageDown, Home/End, N notes, F fullscreen, T timer, P play, M sound, Esc.
 - `#N` in the URL opens slide N; `window.__deck` exposes `go`, `slides`, `synth` for tests.
