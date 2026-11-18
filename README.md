@@ -156,7 +156,7 @@ Use for "build a reveal.js deck", "walk the room through this architecture step 
 
 - Dark "control room" design on a fixed 1600×900 stage, with an agenda bar, a timer that warns on
   overruns, staged reveals, facilitator notes (N), fullscreen (F) and a reduced-motion fallback.
-- Includes 17 brand-neutral slide patterns:
+- Includes 18 brand-neutral slide patterns:
   - Opening: particle-network title, animated population hook with a live poll.
   - Framing: triad with multi-select, three levels, auto-cycling steps that light up capabilities,
     starable pattern cards.
@@ -165,7 +165,13 @@ Use for "build a reveal.js deck", "walk the room through this architecture step 
   - **Deterministic live simulation**: timeline, chart, KPI tiles, event feed, rules, flying-dot
     pipeline, an alert card where the room picks a decision, and an outcome for each decision.
   - Threshold and decision-loop slides, a vote, a summary and next steps.
+  - A "Links & sources" slide: each link carries its context and is copied into the synthesis.
   - Annexes: before/after view with a race timeline, and an architecture slide with flow lenses.
+- A **customisation questionnaire** runs before the build:
+  - Colours: 5 theme presets or approved hex values.
+  - Animation: full, calm or none; fade, slide or zoom transitions; pace; simulation speed.
+  - Sound: synthesized Web Audio tones or supplied files, chosen per event, with an M toggle.
+  - Links: URL, type, why it matters, where it appears, who can open it.
 - Content is kept separate from the engine: `CONFIG`, `CONTENT` and `SIM` objects, plus `SLOT`
   comments. A slide's module skips itself when you delete that slide.
 - Each interaction feeds a **Markdown synthesis** that can be copied or downloaded at the end of
@@ -201,8 +207,8 @@ skills/
     evals/         # workflow and trigger regression scenarios
   interactive-workshop-deck/
     SKILL.md
-    assets/        # starter.html (engine + 17 patterns) and preview images
-    references/    # slide-patterns.md, adaptation-workflow.md
+    assets/        # starter.html (engine + 18 patterns) and preview images
+    references/    # slide-patterns.md, adaptation-workflow.md, customization-questionnaire.md
     evals/         # adaptation and brand-neutrality scenarios
   linkedin-post/
     SKILL.md

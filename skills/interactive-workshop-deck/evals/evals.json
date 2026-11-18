@@ -38,6 +38,20 @@
         "Asks one grouped question about the brand kit and permitted names.",
         "Keeps the neutral monogram and generic capability names until approval is given."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Adapte le deck atelier pour une session sur la sécurité des API. Je veux une ambiance plus chaude, moins d'animations car c'est en visio, un son discret seulement sur l'alerte et la décision, et ajoute nos liens : la doc interne et le formulaire de feedback.",
+      "expected_output": "The agent asks only the missing customisation questions (exact URLs and their context, who can open the internal doc, approved hex colours if any), then sets theme preset ember, motion level calm, sound enabled with only alert and decision at a low volume, and renders the two supplied links with context on the links slide and in the synthesis.",
+      "files": [],
+      "assertions": [
+        "Uses the customisation questionnaire instead of guessing URLs or brand colours.",
+        "Sets CONFIG.theme.preset to a warm preset (ember) or user-supplied tokens, and checks contrast.",
+        "Sets CONFIG.motion.level to calm (or none) for a video call and keeps reduced-motion support.",
+        "Enables sound with events limited to alert and decision and a soft volume; mentions the M toggle and the user-gesture rule.",
+        "Renders only the supplied http(s)/mailto links, each with a context line, marks the internal one as requiring access, and lists them in the synthesis.",
+        "Reports which links could not be verified."
+      ]
     }
   ]
 }
